@@ -2,17 +2,25 @@
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@include file="/WEB-INF/templates/taglib.jsp" %>
 <tiles:insertAttribute name="header"/>
-<!-- products-breadcrumb -->
-	<div class="products-breadcrumb">
-		<div class="container">
-			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a href="${pageContext.request.contextPath }">Trang chủ</a><span>|</span></li>
-				<li>${cname }</li>
-			</ul>
-		</div>
-	</div>
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li class="active"><a href="#">Trang chủ</a></li>
+						<li><a href="#">Sản phẩm</a></li>
+						<li><a href="#">Liên hệ</a></li>
+					</ul>
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
 	<div class="banner">
-<tiles:insertAttribute name="left-bar"/>
 		<tiles:insertAttribute name="content"/>
 		<div class="clearfix"></div>
 	</div>
