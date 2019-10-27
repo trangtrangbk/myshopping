@@ -128,8 +128,7 @@ public class AdminSlideController {
 
 	}
 	@PostMapping("active")
-	public void active(Principal principal,HttpServletRequest request, HttpServletResponse response) throws IOException {
-	
+	public void active(Principal principal,HttpServletRequest request, HttpServletResponse response) throws IOException {	
 		int id = 0;
 		try {
 			id = Integer.parseInt(request.getParameter("id"));

@@ -114,8 +114,7 @@ public class AdminProductController {
 			modelMap.addAttribute("listCat", listCat);
 			return "admin.product.add";
 		}
-		
-		System.out.println("z");
+		System.out.println(objPro);
 		if (cid == null) {
 			ra.addFlashAttribute("msg", MessageDefine.MSG_ERROR);
 			return "redirect:/admin/product";
@@ -150,6 +149,7 @@ public class AdminProductController {
 		System.out.println(listName);
 		objPro.setPicture(listName);
 		if (proDAO.addItem(objPro) > 0) {
+			System.out.println(objPro);
 			ra.addFlashAttribute("msg", MessageDefine.MSG_SUCCESS);
 			return "redirect:/admin/product";
 		}

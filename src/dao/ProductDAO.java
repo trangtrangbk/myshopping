@@ -23,18 +23,20 @@ public class ProductDAO {
 	
 	public List<Product> getItemsPagination(int offset){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,product.cid,description,picture,detail,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
+				+ "product.cid,description,picture,detail,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid ORDER BY id DESC LIMIT ?,?";
 		return (List<Product>) jdbcTemplate.query(sql, new Object[] { offset, PageDefine.PUBLIC_ROW_COUNT },
 				new ResultSetExtractor<List<Product>>() {
-
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"), rs.getString("other"),rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
@@ -42,7 +44,8 @@ public class ProductDAO {
 	}
 	public List<Product> getItemsPaginationByCat(int offset,int cid){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
+				+ ",product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid=? ORDER BY id DESC LIMIT ?,?";
 		return (List<Product>) jdbcTemplate.query(sql, new Object[] {cid, offset, PageDefine.PUBLIC_ROW_COUNT },
 				new ResultSetExtractor<List<Product>>() {
@@ -50,10 +53,12 @@ public class ProductDAO {
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"),rs.getString("other"), rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
@@ -70,14 +75,17 @@ public class ProductDAO {
 	}
 
 	public int addItem(Product objPro) {
-		String sql ="INSERT INTO product(view,name,cid,price,description,detail,picture) VALUES(?,?,?,?,?,?,?)";
+		String sql ="INSERT INTO product(view,name,cid,price,description,detail,"
+				+ "color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,picture) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, new Object[] {0,objPro.getName(),objPro.getCat().getCid(),objPro.getPrice(),
-				objPro.getDescription(),objPro.getDetail(),objPro.getPicture()});
+				objPro.getDescription(),objPro.getDetail(),objPro.getColor(),objPro.getLcd(),objPro.getRam(),objPro.getHdd()
+				,objPro.getSsd(),objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getPicture()});
 		}
 
 	public Product getItem(int id) {
 		Product obj = null;
-		String sql = "SELECT id,name,price,product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
+				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE id=?";
 		try {
 			return jdbcTemplate.query(sql, new Object[] { id }, new ResultSetExtractor<Product>() {
@@ -86,10 +94,12 @@ public class ProductDAO {
 				public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 					Product pro = null;
 					if (rs.next()) {
-						pro = new Product(rs.getInt("id"), rs.getString("name")
-								, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-								rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-										rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) ;
+						pro = new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+								rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+								rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+								rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+								rs.getString("weight"),rs.getString("other"), rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+										rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status"));
 					}
 					return pro;
 				}
@@ -100,9 +110,12 @@ public class ProductDAO {
 	}
 
 	public int editItem(Product objPro) {
-		String sql ="UPDATE product SET name=?,price=?,cid=?,description=?,detail=?,picture=?,status=? WHERE id=?";
+		String sql ="UPDATE product SET name=?,price=?,cid=?,description=?,detail=?,picture=?,status=?,"
+				+ "color=?,lcd=?,ram=?,hdd=?,ssd=?,vga=?,pin=?,os=?,cpu=?,weight=?,other=? WHERE id=?";
 		return jdbcTemplate.update(sql, new Object[] {objPro.getName(),objPro.getPrice(),objPro.getCat().getCid(),
-				objPro.getDescription(),objPro.getDetail(),objPro.getPicture(),objPro.getStatus(),objPro.getId()});
+				objPro.getDescription(),objPro.getDetail(),objPro.getPicture(),objPro.getStatus(),
+				objPro.getColor(),objPro.getLcd(),objPro.getRam(),objPro.getHdd(),objPro.getSsd(),
+				objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getId()});
 	}
 
 	public int delItem(int id) {
@@ -117,7 +130,9 @@ public class ProductDAO {
 	}
 	public List<Product> getResultItemsPagination(int offset, String data) {
 		List<Product> listPro = new ArrayList<Product>();
-		String sql = "SELECT id, name, c.cid, description,detail, picture, price,date, picture,view, c.cid , cname,parrent_id,status "
+		String sql = "SELECT id, name, c.cid, description,detail, picture, price,color,lcd,"
+				+ "ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
+				+ "date, picture,view, c.cid , cname,parrent_id,status "
 				+ " FROM category AS c INNER JOIN product AS p ON c.cid = p.cid WHERE name LIKE ? ORDER BY id DESC LIMIT ?,?";
 		return (List<Product>) jdbcTemplate.query(sql, new Object[] {'%'+data+'%',offset, PageDefine.ADMIN_ROW_COUNT },
 				new ResultSetExtractor<List<Product>>() {
@@ -125,10 +140,12 @@ public class ProductDAO {
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"),rs.getString("other"), rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
@@ -141,17 +158,20 @@ public class ProductDAO {
 	
 	public List<Product> getListPopular(){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid ORDER BY view DESC LIMIT 8";
 		return (List<Product>) jdbcTemplate.query(sql,new ResultSetExtractor<List<Product>>() {
 
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"), rs.getString("other"),rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
@@ -160,17 +180,20 @@ public class ProductDAO {
 	
 	public List<Product> getListRelated(int cid,int id){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid=? AND id!= ? ORDER BY view DESC LIMIT 4";
 		return (List<Product>) jdbcTemplate.query(sql,new Object[] {cid,id},new ResultSetExtractor<List<Product>>() {
 
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"),rs.getString("other"), rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
@@ -179,17 +202,20 @@ public class ProductDAO {
 	
 	public List<Product> getListOther(int cid){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid!=?  ORDER BY view DESC LIMIT 8";
 		return (List<Product>) jdbcTemplate.query(sql,new Object[] {cid},new ResultSetExtractor<List<Product>>() {
 
 					@Override
 					public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 						while (rs.next()) {
-							listPro.add(new Product(rs.getInt("id"), rs.getString("name")
-									, rs.getInt("price"), rs.getString("description"), rs.getString("detail"),
-									rs.getString("picture"),rs.getInt("view"),rs.getTimestamp("date"),new Category(rs.getInt("cid"),
-											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")) );
+							listPro.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getInt("price"), rs.getString("description"),
+									rs.getString("detail"), rs.getString("picture"), rs.getString("color"), rs.getString("lcd"), 
+									rs.getString("ram"), rs.getString("hdd"), rs.getString("ssd"),
+									rs.getString("vga"), rs.getString("pin"), rs.getString("os"), rs.getString("cpu"), 
+									rs.getString("weight"),rs.getString("other"), rs.getInt("view"), rs.getTimestamp("date"), new Category(rs.getInt("cid"),
+											rs.getString("cname"), rs.getInt("parrent_id")), rs.getInt("status")));
 						}
 						return listPro;
 					}
