@@ -158,7 +158,7 @@ public class ProductDAO {
 	
 	public List<Product> getListPopular(){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
 				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid ORDER BY view DESC LIMIT 8";
 		return (List<Product>) jdbcTemplate.query(sql,new ResultSetExtractor<List<Product>>() {
