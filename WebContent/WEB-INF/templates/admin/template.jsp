@@ -23,6 +23,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="${pageContext.request.contextPath }/resources/admin/demo/demo.css" rel="stylesheet" />
   <script type="text/javascript" src="${pageContext.request.contextPath }/resources/admin/ckeditor/ckeditor.js"> </script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
    <script type="text/javascript" src="${pageContext.request.contextPath }/resources/admin/ckfinder/ckfinder.js"> </script>
 </head>
 
