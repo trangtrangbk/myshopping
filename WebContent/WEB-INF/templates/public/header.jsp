@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<style>
+.header{
+	z-index: 100;
+}
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%
+}
 
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +48,7 @@
 <body>
 	<!-- HEADER -->
 	<!-- HEADER -->
-	<header style="position: fixed;top: 0;width: 100%; z-index:100">
+	<header class="header" id="myHeader">
 		<!-- TOP HEADER -->
 		<div id="top-header">
 			<div class="container">
