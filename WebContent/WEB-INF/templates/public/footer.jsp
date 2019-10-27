@@ -98,6 +98,6 @@
 		<script src="${pageContext.request.contextPath }/resources/public/js/nouislider.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/public/js/jquery.zoom.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/public/js/main.js"></script>
-
+	
 	</body>
 </html>

@@ -170,7 +170,7 @@ public class AdminUserController {
 	@PostMapping("edit-profile")
 	public String editPro(Principal principal,ModelMap modelMap,@Valid @ModelAttribute("objUser") User objUser,BindingResult br,RedirectAttributes ra) {
 		if(br.hasErrors()) {
-			return "admin.user.edit";
+			return "admin.user.edit-profile";
 		}
 		User user = userDAO.getItem(principal.getName());
 		int id = user.getId();
