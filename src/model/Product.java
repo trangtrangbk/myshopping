@@ -93,8 +93,8 @@ public class Product {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public String getPicture() {
-		return picture;
+	public String[] getPicture() {
+		return picture.split(":");
 	}
 	public void setPicture(String picture) {
 		this.picture = picture;

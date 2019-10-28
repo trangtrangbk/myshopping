@@ -174,7 +174,7 @@ public class AdminProductController {
 				}
 			}
 		}
-		String[] listName = objPro.getPicture().split(":");
+		String[] listName = objPro.getPicture();
 		modelMap.addAttribute("listName", listName);
 		modelMap.addAttribute("listCat", listCat);
 		modelMap.addAttribute("objPro", objPro);
@@ -221,7 +221,12 @@ public class AdminProductController {
 				return "redirect:/admin/product";
 				}
 			} else {
-				listName = oldPro.getPicture();
+                            for(int i =0 ; i < oldPro.getPicture().length; i++ ){
+                                listName += oldPro.getPicture()[i];
+                                if(i != oldPro.getPicture().length-1){
+                                   listName+= ":"; 
+                                }
+                            }			
 			}
 		}
 			objPro.setPicture(listName);

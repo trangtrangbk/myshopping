@@ -45,7 +45,7 @@ public class ProductDAO {
 	public List<Product> getItemsPaginationByCat(int offset,int cid){
 		List<Product> listPro = new ArrayList<>();
 		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
-				+ ",product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
+				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid=? ORDER BY id DESC LIMIT ?,?";
 		return (List<Product>) jdbcTemplate.query(sql, new Object[] {cid, offset, PageDefine.PUBLIC_ROW_COUNT },
 				new ResultSetExtractor<List<Product>>() {
@@ -128,6 +128,11 @@ public class ProductDAO {
 				"FROM category AS c INNER JOIN product AS p ON c.cid = p.cid WHERE name LIKE ?";
 		return jdbcTemplate.queryForObject(sql,new Object[] {'%'+data+'%'}, Integer.class);
 	}
+        public int countResultItemsCat(int data) {
+		String sql = "SELECT COUNT(*) AS totalRow  " +
+				"FROM product WHERE cid LIKE ?";
+		return jdbcTemplate.queryForObject(sql,new Object[] {'%'+data+'%'}, Integer.class);
+	}
 	public List<Product> getResultItemsPagination(int offset, String data) {
 		List<Product> listPro = new ArrayList<Product>();
 		String sql = "SELECT id, name, c.cid, description,detail, picture, price,color,lcd,"
@@ -180,7 +185,7 @@ public class ProductDAO {
 	
 	public List<Product> getListRelated(int cid,int id){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
 				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid=? AND id!= ? ORDER BY view DESC LIMIT 4";
 		return (List<Product>) jdbcTemplate.query(sql,new Object[] {cid,id},new ResultSetExtractor<List<Product>>() {
@@ -202,7 +207,7 @@ public class ProductDAO {
 	
 	public List<Product> getListOther(int cid){
 		List<Product> listPro = new ArrayList<>();
-		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other"
+		String sql = "SELECT id,name,price,color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,"
 				+ "product.cid,description,detail,picture,view,date,status,category.cname,parrent_id FROM product"
 				+ " INNER JOIN category ON category.cid = product.cid WHERE category.cid!=?  ORDER BY view DESC LIMIT 8";
 		return (List<Product>) jdbcTemplate.query(sql,new Object[] {cid},new ResultSetExtractor<List<Product>>() {
@@ -223,7 +228,7 @@ public class ProductDAO {
 	}
 	
 	public String getFistPicture(Product product) {
-		String[] picture = product.getPicture().split(":");
+		String[] picture = product.getPicture();
 		return picture[0];
 	}
 	
@@ -232,4 +237,5 @@ public class ProductDAO {
 		jdbcTemplate.update(sql, new Object[] {id});
 	}
 }
+
 

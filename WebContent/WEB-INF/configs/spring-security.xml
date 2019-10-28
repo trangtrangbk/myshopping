@@ -37,7 +37,7 @@
 	</http>
 	
 	<user-service>
-		<user name="admin" password="12345" authorities="ROLE_ADMIN" locked="false" disabled="false"/>
+		<user name="admin" password="12345" authorities="ROLE_ADMIN" locked="true" disabled="true"/>
 	</user-service>
 	<b:bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></b:bean>
 	<authentication-manager>

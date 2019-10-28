@@ -45,10 +45,10 @@ public class PublicDetailController {
 		proDAO.IncView(id);
 		Product objPro = proDAO.getItem(id);
 		List<Product> listRelated = proDAO.getListRelated(objPro.getCat().getCid(),objPro.getId());
-		List<Product> listOther = proDAO.getListOther(objPro.getCat().getCid());
-		String[] listName = objPro.getPicture().split(":");
-		modelMap.addAttribute("listName", listName);
-		modelMap.addAttribute("listOther", listOther);
+		//List<Product> listOther = proDAO.getListOther(objPro.getCat().getCid());
+//		String[] listName = objPro.getPicture().split(":");
+//		modelMap.addAttribute("listName", listName);
+		//modelMap.addAttribute("listOther", listOther);
 		modelMap.addAttribute("objPro", objPro);
 		modelMap.addAttribute("listRelated", listRelated);
 		
