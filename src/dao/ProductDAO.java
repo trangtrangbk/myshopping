@@ -79,7 +79,7 @@ public class ProductDAO {
 				+ "color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,picture) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, new Object[] {0,objPro.getName(),objPro.getCat().getCid(),objPro.getPrice(),
 				objPro.getDescription(),objPro.getDetail(),objPro.getColor(),objPro.getLcd(),objPro.getRam(),objPro.getHdd()
-				,objPro.getSsd(),objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getPicture()});
+				,objPro.getSsd(),objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getPicture2()});
 		}
 
 	public Product getItem(int id) {
