@@ -72,6 +72,18 @@
 						<span class="label-input100">email</span>
 						<form:errors cssStyle="color:red" path="objCus.email"></form:errors></br>
 					</div>
+					<div class="wrap-input100 validate-input" data-validate="Phone is required">
+						<input class="input100" type="text" name="phone">
+						<span class="focus-input100"></span>
+						<span class="label-input100">phone</span>
+						<form:errors cssStyle="color:red" path="objCus.phone"></form:errors></br>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate="Address is required">
+						<input class="input100" type="text" name="address">
+						<span class="focus-input100"></span>
+						<span class="label-input100">address</span>
+						<form:errors cssStyle="color:red" path="objCus.address"></form:errors></br>
+					</div>
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">

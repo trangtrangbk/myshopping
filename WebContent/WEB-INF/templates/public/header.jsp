@@ -45,6 +45,7 @@
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/public/css/style.css" />
 </head>
+<%@include file = "/WEB-INF/templates/taglib.jsp" %>
 <body>
 	<!-- HEADER -->
 	<!-- HEADER -->
@@ -54,14 +55,23 @@
 			<div class="container">
 				<ul class="header-links pull-left">
 					<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-					<li><a href="#"><i class="fa fa-envelope-o"></i>
-							email@email.com</a></li>
+					<li><a href="mailto:tranginspirit78@gmail.com"><i class="fa fa-envelope-o"></i>
+							tranginspirit78@gmail.com</a></li>
 					<li><a href="#"><i class="fa fa-map-marker"></i> 54 Tôn
 							Đức Thắng, Liên Chiểu, Đà Nẵng</a></li>
 				</ul>
 				<ul class="header-links pull-right">
-					<li><a href="#"><i class="fa fa-user-o"></i>Tài khoản</a></li>
-					<li><a href="#"><i class="fa  fa-sign-out"></i>Đăng xuất</a></li>
+				<c:choose>
+					<c:when test="${customer !=null }">
+					
+					<li><a href="${pageContext.request.contextPath }/customer/profile"><i class="fa fa-user-o"></i>${customer.name }</a></li>
+					<li><a href="${pageContext.request.contextPath }/customer/logout"><i class="fa  fa-sign-out"></i>Đăng xuất</a></li>
+					</c:when>
+					<c:otherwise>
+					<li><a href="${pageContext.request.contextPath }/customer/login"><i class="fa fa-user-o"></i>Đăng nhập</a></li>
+					<li><a href="${pageContext.request.contextPath }/signup"><i class="fa fa-user-o"></i>Đăng kí</a></li>
+					</c:otherwise>
+				</c:choose>								
 				</ul>
 			</div>
 		</div>

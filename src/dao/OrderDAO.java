@@ -1,15 +1,21 @@
 package dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import define.PageDefine;
+import model.Category;
 import model.Order;
+import model.Product;
 
 @Repository
 public class OrderDAO {
@@ -23,6 +29,21 @@ public class OrderDAO {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	public List<Integer> getItemsByCustomer(int id){
+		List<Integer> listOrder = new ArrayList<>();
+		String sql = "SELECT orders.order_id"
+				+ " from orders INNER JOIN cart ON orders.order_id=cart.order_id WHERE customer_id=? ";
+		return (List<Integer>) jdbcTemplate.query(sql, new Object[] { id},
+				new ResultSetExtractor<List<Integer>>() {
+					@Override
+					public List<Integer> extractData(ResultSet rs) throws SQLException, DataAccessException {
+						while (rs.next()) {
+							listOrder.add(new Integer(rs.getInt("order_id")));
+						}
+						return listOrder;
+					}
+				});
 	}
 	
 	public void addItem(Order item) {

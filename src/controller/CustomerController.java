@@ -24,11 +24,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import dao.CartOrderDAO;
 import dao.CategoryDAO;
 import dao.CustomerDAO;
+import dao.OrderDAO;
 import dao.ProductDAO;
 import define.MessageDefine;
 import model.Cart;
 import model.CartOrder;
 import model.Customer;
+import model.Order;
+import model.Product;
 
 @Controller
 @RequestMapping("customer")
@@ -43,6 +46,8 @@ public class CustomerController {
 	private CategoryDAO catDAO;
 	@Autowired
 	private ProductDAO proDAO;
+	@Autowired 
+	private OrderDAO orderDAO;
 	
 
 	@ModelAttribute
@@ -106,9 +111,7 @@ public class CustomerController {
 	
 	@GetMapping("profile")
 	public String profile(HttpSession session,ModelMap modelMap) {
-		Customer customer = (Customer ) session.getAttribute("customer");
-		List<CartOrder> listCartCustomer = cartOrderDAO.getItemsByCustomer_Id(customer.getId());
-		modelMap.addAttribute("listCartCustomer", listCartCustomer);
+		Customer customer = (Customer ) session.getAttribute("customer");		
 		modelMap.addAttribute("customer", customer);
 		return "customer.profile";
 	}
@@ -124,6 +127,9 @@ public class CustomerController {
 	public String edit(HttpSession session,@ModelAttribute("objCus") Customer objCus,RedirectAttributes ra) {
 		Customer customer = (Customer)session.getAttribute("customer");
 		objCus.setId(customer.getId());
+		System.out.println(objCus);
+		if(objCus.getUsername()== null) objCus.setUsername(customer.getUsername());
+		if(objCus.getPassword()== null) objCus.setPassword(customer.getPassword());
 		if(cusDAO.edit(objCus) > 0) {
 			session.setAttribute("customer", objCus);
 			ra.addFlashAttribute("msg", MessageDefine.MSG_SUCCESSEDIT);
@@ -133,5 +139,15 @@ public class CustomerController {
 			return "redirect:/customer/profile";
 		}
 	}
-
+	@GetMapping("history")
+	public String history(HttpSession session,ModelMap modelMap) {
+		Customer customer = (Customer)session.getAttribute("customer");
+		List<Integer> listOrderCustomer = orderDAO.getItemsByCustomer(customer.getId());
+		System.out.println(listOrderCustomer.size());
+		modelMap.addAttribute("listOrderCustomer", listOrderCustomer);
+		modelMap.addAttribute("customer", customer);
+		modelMap.addAttribute("cartOrderDAO", cartOrderDAO);
+		modelMap.addAttribute("orderDAO", orderDAO);
+		return "customer.history";
+	}
 }
