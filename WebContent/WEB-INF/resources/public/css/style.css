@@ -2174,7 +2174,53 @@ textarea.input {
     margin-top: 10px;
   }
 }
-
+.article a.com {
+	display:block;
+	float:right;
+	margin:-14px 0 0;
+	padding:7px 0 0;
+	width:58px;
+	height:37px;
+	font-size:33px;
+	font-weight:normal;
+	text-decoration:none;
+	text-align:center;
+	color:#fff;
+	background:url(../images/comment.jpg) no-repeat left top;
+}
+.article a.com:hover {
+	text-decoration:none;
+}
+.article a.com span {
+	font-weight:normal;
+}
+.clr {
+	clear:both;
+	padding:0;
+	margin:0;
+	width:100%;
+	font-size:0;
+	line-height:0;
+}
+.content_resize {
+	margin:0 auto;
+	padding:0;
+	width:960px;
+}
+.content .mainbar {
+	margin:0;
+	padding:0;
+	float:right;
+	width:684px;
+}
+.content .mainbar .article {
+	margin:0 0 8px;
+	padding:6px 20px;
+}
+.header, .content, .menu_nav, .fbg, .footer, form, ol, ol li, ul, .content .mainbar, .content .sidebar {
+	margin:0;
+	padding:0;
+}
 @media only screen and (max-width: 480px) {
   [class*='col-xs'] {
     width: 100%;

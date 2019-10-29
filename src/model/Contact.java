@@ -9,6 +9,7 @@ public class Contact {
 	 @NotEmpty(message = "Vui lòng nhập tên liên hệ")
 	 private String name;
 	 @NotEmpty(message = "Vui lòng nhập số điện thoại")
+
 	 private String phone;
 	 @NotEmpty(message = "Email không được trống")
 	 @Email(message="Vui lòng nhập đúng định dạng email")

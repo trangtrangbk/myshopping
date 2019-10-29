@@ -1,52 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-	<div class="w3l_banner_nav_right">
-	<%@include file="/WEB-INF/templates/taglib.jsp" %>
-<!-- mail -->
-		<div class="mail">
-			<h3>Mail Us</h3>
-			
-			<div class="agileinfo_mail_grids">
-				<div class="col-md-4 agileinfo_mail_grid_left">
-					<ul>
-						<li><i class="fa fa-home" aria-hidden="true"></i></li>
-						<li>Địa chỉ<span>868 1st Avenue NYC.</span></li>
-					</ul>
-					<ul>
-						<li><i class="fa fa-envelope" aria-hidden="true"></i></li>
-						<li>Email<span><a href="mailto:info@example.com">info@example.com</a></span></li>
-					</ul>
-					<ul>
-						<li><i class="fa fa-phone" aria-hidden="true"></i></li>
-						<li>Số điện thoại<span>(+123) 233 2362 826</span></li>
-					</ul>
-				</div>
-				<div class="col-md-8 agileinfo_mail_grid_right">
-				<h2 style = "color: red">${msg }</h2>
-					<form action="#" method="post">
-						<div class="col-md-6 wthree_contact_left_grid">
-							<input type="text" name="name" placeholder="Họ tên" >
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+
+<%@include file="/WEB-INF/templates/taglib.jsp"%>
+<form action="#" method="post">
+
+	<div class="section">
+
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-7">
+					<div class="billing-details">
+
+						<h2>
+							<span>Liên hệ</span>
+						</h2>
+						<p>Khi bạn có thắc mắc, vui lòng gửi liên hệ, chúng tôi sẽ
+							phản hồi trong thời gian sớm nhất.</p>
+						<div class="form-group">
+							<label >Họ tên </label> </br> <input class="input"type="text"  
+								name="name" placeholder="Họ Tên">
 							<form:errors cssStyle="color:red" path="obj.name"></form:errors>
-							<input type="email" name="email" placeholder="Email" >
+						</div>
+						<div class="form-group">
+							<label >Email</label></br> <input class="input" type="email"  
+								name="email" placeholder="Email">
 							<form:errors cssStyle="color:red" path="obj.email"></form:errors>
 						</div>
-						<div class="col-md-6 wthree_contact_left_grid">
-						<input type="date" name="usr_time">
-							<input type="text" name="phone" placeholder="Số điện thoại" >
-							<input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+						<div class="form-group">
+							<label>Số điện thoại<h6>(xxx-xx-xxx)</h6></label></br> <input class="input"
+								type="tel"  name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="Số điện thoại">
 							<form:errors cssStyle="color:red" path="obj.phone"></form:errors>
-							<input type="text" name="subject" placeholder="Chủ đề" >
+						</div>
+						<div class="form-group">
+							<label >Chủ đề </label></br> <input class="input" type="text"  
+								name="subject" placeholder="Chủ đề">
 							<form:errors cssStyle="color:red" path="obj.subject"></form:errors>
 						</div>
-						<div class="clearfix"> </div>
-						<textarea  name="message"  placeholder="Message..."></textarea>
-						<form:errors cssStyle="color:red" path="obj.message"></form:errors><br/>
-						<input type="submit" value="Gửi">
-						<input type="reset" value="Reset">
-					</form>
+						<div class="form-group">
+							<label >Nội dung</label></br>
+							<textarea class="input "name="message" placeholder="Nội dung" ></textarea>
+							<form:errors cssStyle="color:red" path="obj.message"></form:errors>
+							<br />
+						</div>
+						<input type="submit" value="Gửi"> <input type="reset"
+							value="Reset">
+
+
+					</div>
 				</div>
-				<div class="clearfix"> </div>
+
+				<h4 style="color: red">${msg }</h4>
+
 			</div>
+
+
+
+
 		</div>
-<!-- //mail -->
-		</div>
+	</div>
+</form>
