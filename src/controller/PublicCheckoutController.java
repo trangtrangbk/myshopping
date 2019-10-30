@@ -37,6 +37,7 @@ import model.Customer;
 import model.GiftCode;
 import model.Order;
 import model.Product;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PublicCheckoutController {
@@ -66,7 +67,7 @@ public class PublicCheckoutController {
         return "public.checkout-step2";
     }
 
-    @GetMapping("checkout1")
+    @RequestMapping("checkout1")
     public String checkout1(ModelMap modelMap, HttpSession session) {
         modelMap.addAttribute("proDAO", proDAO);
         return "public.checkout";
@@ -148,7 +149,7 @@ public class PublicCheckoutController {
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
-        return "public.checkout";
+        return "redirect:/checkout1";
     }
 
     @GetMapping("update-form")

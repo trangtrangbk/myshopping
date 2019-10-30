@@ -36,6 +36,7 @@ public class PublicCartController {
     @Autowired
     private CategoryDAO catDAO;
     private int example;
+
     @ModelAttribute
     public void leftbar(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("catDAO", catDAO);
@@ -43,63 +44,65 @@ public class PublicCartController {
 
     @GetMapping("add")
     public String add(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
-       // Customer customer = (Customer) session.getAttribute("customer");
+        // Customer customer = (Customer) session.getAttribute("customer");
         System.out.println("-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-       // PrintWriter out = response.getWriter();
+        // PrintWriter out = response.getWriter();
 
-            int id = Integer.parseInt(request.getParameter("id"));
-            System.out.println("id " + id);
-            List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
-            if (cartItems == null) {
-                cartItems = new ArrayList<>();
-            }
-            Product product = proDAO.getItem(id);
-            if (product != null) {
-               int index = CheckProduct(id,cartItems);
-                if (index >= 0) {
-                     cartItems.get(index).setQuatity(cartItems.get(index).getQuatity() + 1);  
-                } else {
-                    Cart item = new Cart();
-                    item.setId(++example);
-                    item.setProduct(product);
-                    item.setQuatity(1);
-                    cartItems.add(item);
-                    System.out.println("--"+item.getProduct().getPrice());
-            }
-            }
-            int count = 0;
-            for (Cart list: cartItems) {
-                count += list.getQuatity();
-            }
-           // out.println(" <a href='" + request.getContextPath() + "/checkout'><input type='button' style=\"color: red;font-weight: bold\" value='    " + count + "' class='button' /></a>");//???
-            session.setAttribute("myCartItems", cartItems);
-            session.setAttribute("count", count);
-            session.setAttribute("myCartTotal", totalPrice(cartItems));
-            session.setAttribute("myCartNum", cartItems.size());
-           
-       return "redirect:/";
-    }
-
-    @PostMapping("sub")
-    public void sub(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("id ++++" + id);
+        System.out.println("id " + id);
         List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
-        int index = CheckProduct(id,cartItems);
-        if (cartItems.get(index).getQuatity() > 1) {
-            cartItems.get(index).setQuatity(cartItems.get(index).getQuatity() - 1);
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
+        }
+        Product product = proDAO.getItem(id);
+        if (product != null) {
+            int index = Utils.Process.CheckProduct(id, cartItems);
+            if (index >= 0) {
+                cartItems.get(index).setQuatity(cartItems.get(index).getQuatity() + 1);
+            } else {
+                Cart item = new Cart();
+                item.setId(++example);
+                item.setProduct(product);
+                item.setQuatity(1);
+                cartItems.add(item);
+                System.out.println("--" + item.getProduct().getPrice());
+            }
         }
         int count = 0;
-        for (Cart list: cartItems) {
+        for (Cart list : cartItems) {
             count += list.getQuatity();
         }
-        out.println("<input value="+cartItems.get(index).getQuatity()+">");
+        System.out.println("-----------------" + cartItems.size());
+        //???
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
 
+        return "redirect:/";
+    }
+
+    @GetMapping("sub")
+    public String sub(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int id = Integer.parseInt(request.getParameter("id"));
+        int qty = Integer.parseInt(request.getParameter("qty"));
+        System.out.println("id ++++" + id);
+
+        List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
+        int index = CheckProduct(id, cartItems);
+        cartItems.get(index).setQuatity(qty);
+        int count = 0;
+        for (Cart list : cartItems) {
+            count += list.getQuatity();
+        }
+        // out.println(" <input type= 'number' value= '" + cartItems.get(index).getQuatity() + "'>\n<span class=\"qty-up\">+</span>\n" + "<span class=\"qty-down\">-</span>");
+        session.setAttribute("myCartItems", cartItems);
+        session.setAttribute("count", count);
+        session.setAttribute("myCartTotal", totalPrice(cartItems));
+        session.setAttribute("myCartNum", cartItems.size());
+        System.out.println("id ++++" + qty);
+        return "redirect:/checkout1";
     }
 
     @PostMapping("addquatity")
@@ -108,14 +111,14 @@ public class PublicCartController {
         int id = Integer.parseInt(request.getParameter("id"));
         System.out.println("id ---" + id);
         List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
-        int index = CheckProduct(id,cartItems);
+        int index = CheckProduct(id, cartItems);
         cartItems.get(index).setQuatity(cartItems.get(index).getQuatity() + 1);
         int count = 0;
-        for (Cart list: cartItems) {
+        for (Cart list : cartItems) {
             count += list.getQuatity();
         }
-//        out.println("<span>" + cartItems.get(id).getQuatity() + "</span>");
-        out.println("<input value="+cartItems.get(index).getQuatity()+">");
+        out.println(" <input type= 'number' value= '" + cartItems.get(index).getQuatity() + "'>\n<span class=\"qty-up\">+</span>\n" + "<span class=\"qty-down\">-</span>");
+        out.println("<input value=" + cartItems.get(index).getQuatity() + ">");
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
@@ -139,36 +142,37 @@ public class PublicCartController {
         if (cartItems == null) {
             cartItems = new ArrayList<>();
         }
-        if (cartItems.get(productId) != null) {
-            cartItems.remove(productId);
+        int index = Utils.Process.CheckProduct(productId, cartItems);
+        if (cartItems.get(index) != null) {
+            cartItems.remove(index);
         }
         int count = 0;
-        for (Cart list: cartItems) {
+        for (Cart list : cartItems) {
             count += list.getQuatity();
         }
         session.setAttribute("count", count);
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
-        return "redirect:/checkout";
+        return "redirect:/checkout1";
     }
 
     public long totalPrice(List<Cart> cartItems) {
         int count = 0;
-        for (Cart list: cartItems) {
+        for (Cart list : cartItems) {
             count += list.getProduct().getPrice() * list.getQuatity();
         }
         return count;
     }
 
-    private int  CheckProduct(int id, List<Cart> carts) {
+    private int CheckProduct(int id, List<Cart> carts) {
         int index = -1;
-        for(int i = 0; i < carts.size(); i++){
-          
-            if(carts.get(i).getProduct().getId() == id){
+        for (int i = 0; i < carts.size(); i++) {
+
+            if (carts.get(i).getProduct().getId() == id) {
                 index = i;
             }
-    }
+        }
         return index;
     }
 }

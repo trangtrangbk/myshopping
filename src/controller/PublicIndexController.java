@@ -25,6 +25,8 @@ import dao.CategoryDAO;
 import dao.ProductDAO;
 import dao.SlideDAO;
 import define.PageDefine;
+import java.util.ArrayList;
+import model.Cart;
 import model.Category;
 import model.Customer;
 import model.Product;
@@ -40,6 +42,7 @@ public class PublicIndexController {
     private ProductDAO proDAO;
     @Autowired
     private SlideDAO slideDAO;
+    private List<Cart> cartItems;
 
     @ModelAttribute
     public void leftbar(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
@@ -53,9 +56,13 @@ public class PublicIndexController {
     }
 
     @GetMapping({"", "{page}"})
-    public String index(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page) {
+    public String index(ModelMap modelMap, HttpSession session, @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) {
             page = 1;
+        }
+        cartItems = (List<Cart>) session.getAttribute("myCartItems");
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
         }
         int totalRow = proDAO.countItems();
         int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
@@ -73,6 +80,14 @@ public class PublicIndexController {
         modelMap.addAttribute("listCategory", listCategory);
         List<Product> listProPopular = proDAO.getListPopular();
         modelMap.addAttribute("listProPopular", listProPopular);
+        int count = 0;
+        for (Cart list : cartItems) {
+            count += list.getQuatity();
+        }
+        session.setAttribute("myCartItems", cartItems);
+        session.setAttribute("count", count);
+        session.setAttribute("myCartTotal",Utils.Process.totalPrice(cartItems));
+        session.setAttribute("myCartNum", cartItems.size());
         return "public.index";
     }
 
@@ -113,10 +128,10 @@ public class PublicIndexController {
     }
 
     @GetMapping({"cat/{cid}"})
-    public String searchCat( ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page,@PathVariable(value = "cid", required = false) Integer id) {
+    public String searchCat(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page, @PathVariable(value = "cid", required = false) Integer id) {
         if (page == null) {
             page = 1;
-        }   
+        }
         int totalRow = proDAO.countResultItemsCat(id);
         int sumPage = (int) Math.ceil((float) totalRow / PageDefine.ADMIN_ROW_COUNT);
         int offset = (page - 1) * PageDefine.ADMIN_ROW_COUNT;

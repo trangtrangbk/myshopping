@@ -106,28 +106,10 @@
                                     <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a href="javascript:void(0)" title=""
-                                                                                                           onclick="addcart(${objPro.id})">Thêm vào giỏ hàng</a></button>
+                                    <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/cart/add?id=${objPro.id}"/>'"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
                                 </div>
                             </div>
-                            <script type="text/javascript">
-                                function addcart(id) {
-                                    alert("Đã thêm vào giỏ hàng");
-                                    $.ajax({
-                                        url: '<%=request.getContextPath()%>/cart/add',
-                                        type: 'POST',
-                                        cache: false,
-                                        data: {id: id},
-                                        success: function (data) {
-                                            $('#cart').html(data);
-                                        },
-                                        error: function () {
-                                            alert('Có lỗi xảy ra');
-                                        }
-                                    });
-                                    return false;
-                                }
-                            </script>
+
                         </div>
                     </c:forEach>
                     <!-- /product -->

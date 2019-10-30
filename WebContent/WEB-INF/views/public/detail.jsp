@@ -69,17 +69,9 @@
                         </label>
                     </div>
 
-                    <div class="add-to-cart">
-                        <div class="qty-label">
-                            SỐ LƯỢNG
-                            <div class="input-number">
-                                <input type="number" value="1" var="qty">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                        </div>
-                        <c:url var="urlCart" value="/checkout"></c:url>
-                        <button class="add-to-cart-btn"><a   href="${urlCart}" title=""><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</a></button>
+                    <div class="add-to-cart">                      
+                        
+                        <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/checkout?id=${objPro.id}"/>'"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</button>
                     </div>
 
 
