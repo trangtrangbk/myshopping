@@ -29,15 +29,19 @@
 	<definition name="customer.profile" extends="public.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/public/profile.jsp"></put-attribute>
+	</definition>	
+	<definition name="customer.edit" extends="public.template">
+	<put-attribute name="content"
+			value="/WEB-INF/views/public/edit.jsp"></put-attribute>
+		</definition>
+		<definition name="customer.history" extends="public.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/public/history.jsp"></put-attribute>
 	</definition>
-	
-	
-	
 	<definition name="public.checkout" extends="public.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/public/checkout.jsp"></put-attribute>
-	</definition>
-	
+	</definition>	
 	
 	<definition name="public.checkout-step2" extends="public.template">
 		<put-attribute name="content"
@@ -127,14 +131,12 @@
 	<definition name="admin.user.edit" extends="admin.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/users/edit.jsp"></put-attribute>
-	</definition>
-	
+	</definition>	
 	
 	<definition name="admin.user.edit-profile" extends="admin.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/users/editProfile.jsp"></put-attribute>
 	</definition>
-	
 	
 	<definition name="admin.giftcode" extends="admin.template">
 		<put-attribute name="content"
@@ -144,15 +146,12 @@
 	<definition name="admin.slide" extends="admin.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/slide/index.jsp"></put-attribute>
-	</definition>
-	
+	</definition>	
 	
 	<definition name="admin.slide.add" extends="admin.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/slide/add.jsp"></put-attribute>
-	</definition>
-	
-	
+	</definition>	
 	
 	<definition name="admin.giftcode.add" extends="admin.template">
 		<put-attribute name="content"
@@ -162,11 +161,7 @@
 	<definition name="admin.giftcode.edit" extends="admin.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/giftcode/edit.jsp"></put-attribute>
-	</definition>
-
-	
-	
-	
+	</definition>	
 
 	<definition name="admin.product" extends="admin.template">
 		<put-attribute name="content"
@@ -200,13 +195,7 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/admin/product/result.jsp"></put-attribute>
 	</definition>
-
-
-	<!-- Login Template -->
-
-	<definition name="customer.edit"
-		template="/WEB-INF/views/public/edit.jsp"></definition>
-	
+	<!-- Login Template -->	
 	<definition name="auth.login"
 		template="/WEB-INF/views/auth/login.jsp"></definition>
 		

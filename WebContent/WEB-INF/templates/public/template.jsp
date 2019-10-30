@@ -25,4 +25,5 @@
 		<div class="clearfix"></div>
 	</div>
 <!-- //banner -->
+
 <tiles:insertAttribute name="footer"/>

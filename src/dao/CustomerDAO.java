@@ -18,8 +18,8 @@ public class CustomerDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public int add(Customer cus) {
-		String sql = "INSERT INTO customer(name,username,password,email) VALUES(?,?,?,?)";
-		return jdbcTemplate.update(sql, new Object[] {cus.getName(),cus.getUsername(),cus.getPassword(),cus.getEmail()});
+		String sql = "INSERT INTO customer(name,username,password,email,phone,address) VALUES(?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql, new Object[] {cus.getName(),cus.getUsername(),cus.getPassword(),cus.getEmail(),cus.getPhone(),cus.getAddress()});
 	}
 	public List<Customer> getItemsPagination(int offset){
 		String sql = "SELECT * FROM customer ORDER BY id DESC LIMIT ?,?";		
@@ -27,8 +27,8 @@ public class CustomerDAO {
 	}
 
 	public int edit(Customer cus) {
-		String sql = "UPDATE customer SET name=?,username = ?,password=?,email=? WHERE id = ?";
-		return jdbcTemplate.update(sql, new Object[] {cus.getName(),cus.getUsername(),cus.getPassword(),cus.getEmail(),cus.getId()});
+		String sql = "UPDATE customer SET name=?,username = ?,password=?,email=?,phone=?,address=? WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[] {cus.getName(),cus.getUsername(),cus.getPassword(),cus.getEmail(),cus.getPhone(),cus.getAddress(),cus.getId()});
 	}
 	
 	public int checkDup(String username) {
