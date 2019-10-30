@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    <%@include file = "/WEB-INF/templates/taglib.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +45,7 @@
 					</span>
 					<p style="color:red">${msg }</p>
 					<div class="wrap-input100 validate-input" data-validate = "Enter your fullname">
-						<input class="input100" type="text" name="username" placeholder="Fullname">
+						<input class="input100" type="text" name="name" placeholder="Fullname">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 						<form:errors cssStyle="color:red" path="objCus.name"></form:errors>
 					</div>
@@ -83,6 +84,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V18</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -13,7 +13,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/vendor/animate/animate.css">
 <!--===============================================================================================-->	
@@ -29,68 +29,39 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/css/main.css">
 <!--===============================================================================================-->
 </head>
-<body style="background-color: #666666;">
+<body>
 	
 	<div class="limiter">
-		<div class="container-login100">
+		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action = "" method = "post">
-					<span class="login100-form-title p-b-43">
-						Đăng nhập					</span>
-					
-					
-					
-						<p style ="color:red">${msg }</p>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="username" required="true">
-						<span class="focus-input100"></span>
-						<span class="label-input100">tên đăng nhập</span>
-					</div>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="password" required="true">
-						<span class="focus-input100"></span>
-						<span class="label-input100">mật khẩu</span>
+					<span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Đăng nhập
+					</span>
+					<p style ="color:red">${msg }</p>
+					<div class="wrap-input100 validate-input" data-validate = "Enter username">
+						<input class="input100" type="text" name="username" required="true" placeholder="Username">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="password" required="true" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 							Login
-						</button>
-						<br/>
-						<a href="${pageContext.request.contextPath }/signup" class="submit check_out">Chưa có tài khoản? Đăng kí ngay</a>
+						</button>						
 					</div>
+					<a href="${pageContext.request.contextPath }/signup" class="input100">Chưa có tài khoản? Đăng kí ngay</a>
 				</form>
-
-				<div class="login100-more" style="background-image: url('${pageContext.request.contextPath}/resources/auth/images/bg2.jpg');">
-				</div>
 			</div>
 		</div>
 	</div>
-	
-	
-
-	
-	
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/bootstrap/js/popper.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/daterangepicker/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="${pageContext.request.contextPath}/resources/auth/ js/main.js"></script>
 
 </body>
 </html>
