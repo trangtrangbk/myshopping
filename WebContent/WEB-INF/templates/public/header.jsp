@@ -112,68 +112,38 @@
 					<div class="col-md-3 clearfix">
 						<div class="header-ctn">
 
-							<!-- Cart -->
-							<div class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown"
-									aria-expanded="true"> <i class="fa fa-shopping-cart"></i> <span>Giỏ
-										hàng</span>
-									<div class="qty">3</div>
-								</a>
-								<div class="cart-dropdown">
-									<div class="cart-list">
-										<div class="product-widget">
-											<div class="product-img">
-												<img src="./img/product01.png" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-name">
-													<a href="#">ASUS VivoBook S14</a>
-												</h3>
-												<h4 class="product-price">
-													<span class="qty">1x</span>12.000.000
-												</h4>
-											</div>
-											<button class="delete">
-												<i class="fa fa-close"></i>
-											</button>
-										</div>
-
-										<div class="product-widget">
-											<div class="product-img">
-												<img src="./img/product02.png" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-name">
-													<a href="#">ASUS VivoBook S14</a>
-												</h3>
-												<h4 class="product-price">
-													<span class="qty">1x</span>12.000.000
-												</h4>
-											</div>
-											<button class="delete">
-												<i class="fa fa-close"></i>
-											</button>
-										</div>
-									</div>
-									<div class="cart-summary">
-										<h5>TỔNG: 14.000.000 VND</h5>
-									</div>
-									<div class="cart-btns">
-										<a href="#">Xem giỏ hàng</a> <a href="#">Thanh toán <i
-											class="fa fa-arrow-circle-right"></i></a>
-									</div>
-								</div>
-							</div>
-							<!-- /Cart -->
-
-							<!-- Menu Toogle -->
-							<!-- <div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-								</div> -->
-							<!-- /Menu Toogle -->
+							
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        <span>Giỏ hàng</span>
+                                        <div class="qty">${myCartNum}</div>
+                                    </a>
+                                    <div class="cart-dropdown">
+                                        <div class="cart-list">
+                                            <c:forEach var="cart" items="${myCartItems}">
+                                                <div class="product-widget">
+                                                    <div class="product-img">
+                                                        <c:set var="picture" value="${cart.getProduct().getPicture()[0] }"></c:set>
+                                                        <img src="${pageContext.request.contextPath }/resources/public/img/${picture}" alt="">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="#">${cart.product.name}</a></h3>
+                                                        <h4 class="product-price"><span class="qty">${cart.quatity}</span>${en.format(cart.quatity * cart.product.price) }</h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </c:forEach>
+                                           
+                                        <div class="cart-summary">
+                                            <h5>TỔNG: ${en.format(myCartTotal)} VND</h5>
+                                        </div>
+                                        <div class="cart-btns">
+                                            <a href="./checkout1">Xem giỏ hàng</a>
+                                            <a href="#">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
 						</div>
 					</div>
 					<!-- /ACCOUNT -->

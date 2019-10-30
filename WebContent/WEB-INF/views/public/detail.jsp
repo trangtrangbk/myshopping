@@ -12,7 +12,7 @@
                 <div id="product-main-img">
                     <c:forEach var="picture" items="${objPro.getPicture()}">
                         <div class="product-preview">
-                            <img src="${pageContext.request.contextPath }/resources/public/img/${picture}" alt="">
+                            <img src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
                         </div>
                     </c:forEach>
                 </div>
@@ -24,7 +24,7 @@
                 <div id="product-imgs">
                     <c:forEach var="picture" items="${objPro.getPicture()}">
                         <div class="product-preview">
-                            <img src="${pageContext.request.contextPath }/resources/public/img/${picture}" alt="">
+                            <img src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
                         </div>
                     </c:forEach>                  
                 </div>
@@ -69,17 +69,9 @@
                         </label>
                     </div>
 
-                    <div class="add-to-cart">
-                        <div class="qty-label">
-                            SỐ LƯỢNG
-                            <div class="input-number">
-                                <input type="number" value="1" var="qty">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                        </div>
-                        <c:url var="urlCart" value="/checkout"></c:url>
-                        <button class="add-to-cart-btn"><a   href="${urlCart}" title=""><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</a></button>
+                    <div class="add-to-cart">                      
+                        
+                        <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/checkout?id=${objPro.id}"/>'"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</button>
                     </div>
 
 
@@ -334,7 +326,7 @@
                                 <c:url var="urlDetail" value="/detail/${StringUtils.makeSlug(objPro.name)}-${objPro.id }"></c:url>
                                     <div class="product-img">
                                     <c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
-                                    <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/resources/public/img/${picture}" alt="">
+                                    <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
                                     <div class="product-label">
                                         <span class="sale">-30%</span>
                                         <span class="new">NEW</span>

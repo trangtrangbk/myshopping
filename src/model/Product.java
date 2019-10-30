@@ -96,6 +96,9 @@ public class Product {
 	public String[] getPicture() {
 		return picture.split(":");
 	}
+        public String getPicture2() {
+		return picture;
+	}
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}

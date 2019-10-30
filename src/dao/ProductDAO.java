@@ -79,7 +79,7 @@ public class ProductDAO {
 				+ "color,lcd,ram,hdd,ssd,vga,pin,os,cpu,weight,other,picture) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, new Object[] {0,objPro.getName(),objPro.getCat().getCid(),objPro.getPrice(),
 				objPro.getDescription(),objPro.getDetail(),objPro.getColor(),objPro.getLcd(),objPro.getRam(),objPro.getHdd()
-				,objPro.getSsd(),objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getPicture()});
+				,objPro.getSsd(),objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getPicture2()});
 		}
 
 	public Product getItem(int id) {
@@ -113,7 +113,7 @@ public class ProductDAO {
 		String sql ="UPDATE product SET name=?,price=?,cid=?,description=?,detail=?,picture=?,status=?,"
 				+ "color=?,lcd=?,ram=?,hdd=?,ssd=?,vga=?,pin=?,os=?,cpu=?,weight=?,other=? WHERE id=?";
 		return jdbcTemplate.update(sql, new Object[] {objPro.getName(),objPro.getPrice(),objPro.getCat().getCid(),
-				objPro.getDescription(),objPro.getDetail(),objPro.getPicture(),objPro.getStatus(),
+				objPro.getDescription(),objPro.getDetail(),objPro.getPicture2(),objPro.getStatus(),
 				objPro.getColor(),objPro.getLcd(),objPro.getRam(),objPro.getHdd(),objPro.getSsd(),
 				objPro.getVga(),objPro.getPin(),objPro.getOs(),objPro.getCpu(),objPro.getWeight(),objPro.getOther(),objPro.getId()});
 	}
