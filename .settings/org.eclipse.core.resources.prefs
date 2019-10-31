@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/resources/public/css/style.css=UTF-8
 encoding//WebContent/WEB-INF/views/admin/index/index.jsp=UTF-8
 encoding//src/controller/AdminIndexController.java=UTF-8
 encoding//src/controller/AdminProductController.java=UTF-8

@@ -11,7 +11,7 @@
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
                     <c:forEach var="picture" items="${objPro.getPicture()}">
-                        <div class="product-preview">
+                        <div class="product-preview" style="height:auto">
                             <img src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
                         </div>
                     </c:forEach>
@@ -50,7 +50,6 @@
                     <P>OS: ${objPro.os}</P>
 
                     <div class="product-options">
-
                         <label>
                             MÀU
                             <select class="input-select">
@@ -58,29 +57,18 @@
                             </select>
                         </label>
                     </div>
-
-                    <div class="add-to-cart">                      
-                        
+                    <div class="add-to-cart"> 
                         <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/checkout?id=${objPro.id}"/>'"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</button>
                     </div>
-
-
                 </div>
             </div>
-            <!-- /Product details -->
-
-            <!-- Product tab -->
             <div class="col-md-12">
                 <div id="product-tab">
                     <!-- product tab nav -->
                     <ul class="tab-nav">
                         <li class="active"><a data-toggle="tab" href="#tab1">MÔ TẢ</a></li>
                         <li><a data-toggle="tab" href="#tab2">CHI TIẾT</a></li>
-                        <li><a data-toggle="tab" href="#tab3">NHẬN XÉT</a></li>
                     </ul>
-                    <!-- /product tab nav -->
-
-                    <!-- product tab content -->
                     <div class="tab-content">
                         <!-- tab1  -->
                         <div id="tab1" class="tab-pane fade in active">
@@ -100,21 +88,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /tab2  -->
-
-                        
                     </div>
-                    <!-- /product tab content  -->
                 </div>
             </div>
-            <!-- /product tab -->
         </div>
         <!-- /row -->
     </div>
     <!-- /container -->
 </div>
-<!-- /SECTION -->
-
 <!-- Section -->
 <div class="section">
     <!-- container -->
@@ -172,15 +153,7 @@
                             </script>
                         </div>
                     </c:forEach>
-                    <!-- /product -->
-
-
             <div class="clearfix visible-sm visible-xs"></div>
-
-            <!-- product -->
         </div>
-        <!-- /row -->
     </div>
-    <!-- /container -->
 </div>
-<!-- /Section -->
