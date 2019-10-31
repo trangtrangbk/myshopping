@@ -23,7 +23,7 @@
                     <div>
                         <c:forEach var="category" items="${listCategory}">
                             <div>
-                                <a href="${pageContext.request.contextPath }/cat/${category.cid}">
+                                <a href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
                                     <label for="brand-1">
                                         <span>
                                             ${category.cname}</span>

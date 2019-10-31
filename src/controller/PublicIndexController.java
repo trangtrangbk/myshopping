@@ -126,21 +126,4 @@ public class PublicIndexController {
         modelMap.addAttribute("page", page);
         return "public.search";
     }
-
-    @GetMapping({"cat/{cid}"})
-    public String searchCat(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page, @PathVariable(value = "cid", required = false) Integer id) {
-        if (page == null) {
-            page = 1;
-        }
-        int totalRow = proDAO.countResultItemsCat(id);
-        int sumPage = (int) Math.ceil((float) totalRow / PageDefine.ADMIN_ROW_COUNT);
-        int offset = (page - 1) * PageDefine.ADMIN_ROW_COUNT;
-        List<Product> listPro = proDAO.getItemsPaginationByCat(offset, id);
-        List<Category> listCategory = catDAO.getCategory();
-        modelMap.addAttribute("listCategory", listCategory);
-        modelMap.addAttribute("listPro", listPro);
-        modelMap.addAttribute("sumPage", sumPage);
-        modelMap.addAttribute("page", page);
-        return "public.index";
-    }
 }

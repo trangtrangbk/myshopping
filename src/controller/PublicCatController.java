@@ -53,6 +53,8 @@ public class PublicCatController {
 		List<Product> listPro = proDAO.getItemsPaginationByCat(offset, cid);
 		System.out.println(listPro.size());
 		modelMap.addAttribute("cid", cid);
+                List<Category> listCategory = catDAO.getCategory();
+                modelMap.addAttribute("listCategory", listCategory);
 		modelMap.addAttribute("listPro", listPro);
 		modelMap.addAttribute("sumPage", sumPage);
 		modelMap.addAttribute("page", page);	
