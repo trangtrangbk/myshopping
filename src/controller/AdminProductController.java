@@ -82,16 +82,16 @@ public class AdminProductController {
 	@GetMapping("add")
 	public String add(ModelMap modelMap) {
 		List<Category> listCat = catDAO.getItems();
-//		List<Integer> listParrent_id = catDAO.getListParrent_id();
-//		for (int t = 0; t < listCat.size(); t++) {
-//			for (int i = 0; i < listParrent_id.size(); i++) {
-//				if (listCat.get(t).getCid() == listParrent_id.get(i)) {
-//					listCat.remove(listCat.get(t));
-//					t--;
-//					break;
-//				}
-//			}
-//		}
+		List<Integer> listParrent_id = catDAO.getListParrent_id();
+		for (int t = 0; t < listCat.size(); t++) {
+			for (int i = 0; i < listParrent_id.size(); i++) {
+				if (listCat.get(t).getCid() == listParrent_id.get(i)) {
+					listCat.remove(listCat.get(t));
+					t--;
+					break;
+				}
+			}
+		}
 		modelMap.addAttribute("listCat", listCat);
 		return "admin.product.add";
 	}
@@ -101,16 +101,16 @@ public class AdminProductController {
 			@RequestParam("picturePre") List<CommonsMultipartFile> listPicture, RedirectAttributes ra)	throws IllegalStateException, IOException {
 		if(br.hasErrors()) {
 			List<Category> listCat = catDAO.getItems();
-//			List<Integer> listParrent_id = catDAO.getListParrent_id();
-//			for (int t = 0; t < listCat.size(); t++) {
-//				for (int i = 0; i < listParrent_id.size(); i++) {
-//					if (listCat.get(t).getCid() == listParrent_id.get(i)) {
-//						listCat.remove(listCat.get(t));
-//						t--;
-//						break;
-//					}
-//				}
-//			}
+			List<Integer> listParrent_id = catDAO.getListParrent_id();
+			for (int t = 0; t < listCat.size(); t++) {
+				for (int i = 0; i < listParrent_id.size(); i++) {
+					if (listCat.get(t).getCid() == listParrent_id.get(i)) {
+						listCat.remove(listCat.get(t));
+						t--;
+						break;
+					}
+				}
+			}
 			modelMap.addAttribute("listCat", listCat);
 			return "admin.product.add";
 		}

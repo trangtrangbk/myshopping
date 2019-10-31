@@ -45,8 +45,8 @@
 							<td class="text-left">
 							<c:set var="urlView" value="${pageContext.request.contextPath }/admin/order/view/${objOrder.order_id }" />
 							<c:set var="urlDel" value="${pageContext.request.contextPath }/admin/order/del/${objOrder.order_id }" />
-									<a href="${urlView }" title="Xem" ><img  height ="20px" width="20px"  src="${pageContext.request.contextPath }/resources/admin/img/view.png">Xem</a>
-                                    <a href="${urlDel }" title="Xóa"  onclick="return confirm('Xác nhận xóa danh mục?')" ><img  height ="20px" width="20px"  src="${pageContext.request.contextPath }/resources/admin/img/bin.png">Xóa</a>
+									<a href="${urlView }" title="Xem" ><img  height ="20px" width="20px"  src="${pageContext.request.contextPath }/resources/admin/img/view.png"></a>
+                                    <a href="${urlDel }" title="Xóa"  onclick="return confirm('Xác nhận xóa danh mục?')" ><img  height ="20px" width="20px"  src="${pageContext.request.contextPath }/resources/admin/img/bin.png"></a>
 								</td>
 						</tr>
 						</c:forEach>

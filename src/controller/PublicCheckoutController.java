@@ -62,8 +62,14 @@ public class PublicCheckoutController {
     }
 
     @GetMapping("checkout-step2")
-    public String checkout2(ModelMap modelMap, HttpSession session) {
+    public String checkout2(ModelMap modelMap, HttpSession session) {    	
+    	Customer customer = (Customer ) session.getAttribute("customer");	
+    	List<Cart> myCartItems = (ArrayList<Cart>) session.getAttribute("myCartItems");
+    	Long myCartTotal = (Long) session.getAttribute("myCartTotal");
         modelMap.addAttribute("proDAO", proDAO);
+        modelMap.addAttribute("customer",customer);
+        modelMap.addAttribute("myCartItems", myCartItems);
+        modelMap.addAttribute("myCartTotal",myCartTotal);
         return "public.checkout-step2";
     }
 
@@ -74,49 +80,55 @@ public class PublicCheckoutController {
     }
 
     @PostMapping("checkout-step2")
-    public String checkout2(@RequestParam("payments") String payments, @RequestParam("paid") int paid, RedirectAttributes ra, HttpSession session, ModelMap modelMap) {
-        HashMap<Integer, Cart> cartItems = (HashMap<Integer, Cart>) session.getAttribute("myCartItems");
+    public String checkout2(@RequestParam("giftcodes") String giftcode,@Valid @ModelAttribute("objOrder") Order objOrder,RedirectAttributes ra, HttpSession session, ModelMap modelMap) {
+    	List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             ra.addFlashAttribute("msg", MessageDefine.NULL_CART);
             return "redirect:/checkout";
-        }
-        if (paid == 0 && !"Thanh toán sau khi nhận hàng".equals(payments)) {
-            ra.addFlashAttribute("msg", MessageDefine.CANCEL_PAID);
-            return "redirect:/checkout-step2";
-        }
-        Order objOrder = (Order) session.getAttribute("objOrder");
-        if (paid == 1) {
-            objOrder.setPayments("Thanh toán với paypal ");
+        }        
+        GiftCode objGift = giftDAO.getItem(giftcode);
+        if (objGift == null) {
+            System.out.println("giflcode null");
+            objOrder.setGiftcode(0);
         } else {
-            objOrder.setPayments(payments);
+            objOrder.setGiftcode(objGift.getValue());
         }
-
-        if ("Thanh toán sau khi nhận hàng".equals(objOrder.getPayments())) {
-            objOrder.setPaid("Chưa thanh toán");
-        } else {
-            objOrder.setPaid("Đã thanh toán");
-        }
+        objOrder.setStatus("Đang chờ");
+        objOrder.setPayments("Thanh toán sau khi nhận hàng");
+        objOrder.setPaid("Chưa thanh toán");        
         Customer customer = (Customer) session.getAttribute("customer");
         objOrder.setBill((long) session.getAttribute("myCartTotal"));
-        System.out.println(objOrder.toString());
-        orderDAO.addItem(objOrder);
-
-        objOrder = orderDAO.getItemLastest();
+        System.out.println(objOrder.toString());        
+        long total = (long) session.getAttribute("myCartTotal");
+        total -= total * objOrder.getGiftcode() / 100;
+        session.setAttribute("myCartTotal", total);
+        session.setAttribute("objOrder", objOrder);
+        session.setAttribute("myCartItems", cartItems);
+       
+        return "public.confirm";
+    }
+    
+    @PostMapping("confirm")
+    public String confirm(HttpSession session) {
+    	Order order = (Order) session.getAttribute("objOrder");
+    	Customer customer = (Customer) session.getAttribute("customer");
+    	List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
+    	orderDAO.addItem(order);
+    	order = orderDAO.getItemLastest();
         if (cartItems != null) {
-            for (Cart cart : cartItems.values()) {
+            for (Cart cart : cartItems) {
                 CartOrder item = new CartOrder();
                 item.setPro_id(cart.getProduct().getId());
                 item.setQuatity(cart.getQuatity());
-                item.setOrder_id(objOrder.getOrder_id());
+                item.setOrder_id(order.getOrder_id());
                 item.setCustomer_id(customer.getId());
                 cartOrdDAO.addItem(item);
             }
         }
-        session.removeAttribute("myCartItems");
+    	session.removeAttribute("myCartItems");
         session.removeAttribute("count");
         session.removeAttribute("myCartTotal");
         session.removeAttribute("myCartNum");
-        session.removeAttribute("objOrder");
         return "order-success";
     }
 
@@ -194,20 +206,7 @@ public class PublicCheckoutController {
             ra.addFlashAttribute("msg", MessageDefine.NULL_CART);
             return "redirect:/checkout";
         }
-        System.out.println(giftcode);
-        GiftCode objGift = giftDAO.getItem(giftcode);
-
-        if (objGift == null) {
-            System.out.println("giflcode null");
-            objOrder.setGiftcode(0);
-        } else {
-            objOrder.setGiftcode(objGift.getValue());
-        }
-        objOrder.setStatus("Đang chờ");
-        long total = (long) session.getAttribute("myCartTotal");
-        total -= total * objOrder.getGiftcode() / 100;
-        session.setAttribute("objOrder", objOrder);
-        session.setAttribute("myCartTotal", total);
+        
         return "redirect:/checkout-step2";
     }
 }

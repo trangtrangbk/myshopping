@@ -42,6 +42,10 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/public/checkout.jsp"></put-attribute>
 	</definition>	
+	<definition name="public.confirm" extends="public.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/public/confirm.jsp"></put-attribute>
+	</definition>	
 	
 	<definition name="public.checkout-step2" extends="public.template">
 		<put-attribute name="content"

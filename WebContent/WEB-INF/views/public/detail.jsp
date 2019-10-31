@@ -58,7 +58,11 @@
                         </label>
                     </div>
                     <div class="add-to-cart"> 
-                        <button class="add-to-cart-btn" onclick="location.href = '<c:url value="/checkout?id=${objPro.id}"/>'"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG</button>
+                        <button class="add-to-cart-btn" >
+                        <a href="javascript:void(0)" title="" onclick="addcart(${objPro.id})">
+                        <i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ HÀNG
+                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -129,13 +133,16 @@
                                     <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a href="javascript:void(0)" title=""
-                                                                                                           onclick="addcart(${objPro.id})">Thêm vào giỏ hàng</a></button>
+                                   <button class="add-to-cart-btn"										>
+										<a href="javascript:void(0)" title=""
+														onclick="addcart(${objPro.id})">
+										<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+										</a>
+									</button>
                                 </div>
                             </div>
                             <script type="text/javascript">
-                                function addcart(id) {
-                                    alert("Đã thêm vào giỏ hàng");
+                                function addcart(id) {                                   
                                     $.ajax({
                                         url: '<%=request.getContextPath()%>/cart/add',
                                         type: 'POST',

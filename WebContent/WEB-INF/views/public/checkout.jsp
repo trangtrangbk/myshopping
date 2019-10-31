@@ -2,26 +2,6 @@
          pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@include file="/WEB-INF/templates/taglib.jsp" %>
 
-<!-- BREADCRUMB -->
-<div id="breadcrumb" class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="breadcrumb-header">Giỏ Hàng</h3>
-                <ul class="breadcrumb-tree">
-                    <li><a href="#">Trang Chủ</a></li>
-                    <li class="active">Giỏ Hàng</li>
-                </ul>
-            </div>
-        </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /BREADCRUMB -->
-
 <!-- SECTION -->
 <div class="section">
     <!-- container -->
@@ -69,7 +49,7 @@
                                             <tr class="cart_item">
                                                 <td class="cart_product_img">
                                                     <c:set var="picture" value="${cart.getProduct().getPicture()[0] }"></c:set>
-                                                    <a href="#"><img src="${pageContext.request.contextPath }/resources/public/img/${picture}"  style="width:100px;height:100px" alt="Product"></a>
+                                                    <a href="#"><img src="${pageContext.request.contextPath }/fileUpload/${picture}"  style="width:100px;height:100px" alt="Product"></a>
                                                 </td>
                                                 <td class="cart_product_desc">
                                                     <h5>${cart.product.name}</h5>
@@ -132,7 +112,7 @@
                                 </ul>
 
                                 <div class="cart-btn mt-100">
-                                    <a href="./thanhtoan" class="btn amado-btn w-100" style="    display: inline-block;
+                                    <a href="./checkout-step2" class="btn amado-btn w-100" style="    display: inline-block;
                                        min-width: 160px;
                                        height: 55px;
                                        color: #ffffff;

@@ -96,12 +96,7 @@
 					<div class="col-md-6">
 						<div class="header-search">
 							<form>
-								<select class="input-select">
-									<option value="0">Tất cả</option>
-									<option value="1">DELL</option>
-									<option value="1">ASUS</option>
-									<option value="1">ACER</option>
-								</select> <input class="input" placeholder="Tìm kiếm">
+								<input class="input" placeholder="Tìm kiếm">
 								<button class="search-btn">Tìm kiếm</button>
 							</form>
 						</div>
@@ -113,11 +108,11 @@
 						<div class="header-ctn">
 
 							
-                                <div class="dropdown">
+                                <div class="dropdown" id="cart">
                                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Giỏ hàng</span>
-                                        <div class="qty">${myCartNum}</div>
+                                        <div class="qty">${count}</div>
                                     </a>
                                     <div class="cart-dropdown">
                                         <div class="cart-list">
@@ -125,7 +120,7 @@
                                                 <div class="product-widget">
                                                     <div class="product-img">
                                                         <c:set var="picture" value="${cart.getProduct().getPicture()[0] }"></c:set>
-                                                        <img src="${pageContext.request.contextPath }/resources/public/img/${picture}" alt="">
+                                                        <img src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
                                                     </div>
                                                     <div class="product-body">
                                                         <h3 class="product-name"><a href="#">${cart.product.name}</a></h3>

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,8 @@ import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import model.Cart;
 import model.Customer;
 import model.Product;
@@ -42,12 +45,11 @@ public class PublicCartController {
         request.setAttribute("catDAO", catDAO);
     }
 
-    @GetMapping("add")
-    public String add(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Customer customer = (Customer) session.getAttribute("customer");
-        System.out.println("-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        // PrintWriter out = response.getWriter();
-
+    @PostMapping("add")
+    public void add(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	 Locale localeEN = new Locale("en", "EN");
+         NumberFormat en = NumberFormat.getInstance(localeEN);
+        PrintWriter out = response.getWriter();
         int id = Integer.parseInt(request.getParameter("id"));
         System.out.println("id " + id);
         List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
@@ -65,21 +67,43 @@ public class PublicCartController {
                 item.setProduct(product);
                 item.setQuatity(1);
                 cartItems.add(item);
-                System.out.println("--" + item.getProduct().getPrice());
             }
         }
         int count = 0;
         for (Cart list : cartItems) {
             count += list.getQuatity();
         }
-        System.out.println("-----------------" + cartItems.size());
-        //???
+        out.print(" <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-expanded=\"true\">\r\n" + 
+        		"                                        <i class=\"fa fa-shopping-cart\"></i>\r\n" + 
+        		"                                        <span>Giỏ hàng</span>\r\n" + 
+        		"                                        <div class=\"qty\">"+count +"</div>\r\n" + 
+        		"                                    </a>");
+        out.print("  <div class=\"cart-dropdown\">\r\n" + 
+        		"                                        <div class=\"cart-list\">");
+        for(Cart cart:cartItems) {
+        	String picture = cart.getProduct().getPicture()[0];
+        	out.print(" <div class=\"product-widget\">\r\n" + 
+        			"                                                    <div class=\"product-img\">\r\n" +"<img src=\'"+ request.getContextPath()+ "/fileUpload/"+picture+"'alt=\"\">\r\n" + 
+        			"                                                    </div>\r\n" + 
+        			"                                                    <div class=\"product-body\">\r\n" + 
+        			"                                                        <h3 class=\"product-name\"><a href=\"#\">"+cart.getProduct().getName()+"</a></h3>\r\n" + 
+        			"                                                        <h4 class=\"product-price\"><span class=\"qty\">"+cart.getQuatity()+"</span>"+en.format(cart.getQuatity() * cart.getProduct().getPrice())+"</h4>\r\n" + 
+        			"                                                    </div></div>");
+        }
+        out.print(" <div class=\"cart-summary\">\r\n" + 
+        		"                                            <h5>TỔNG:"+ en.format(totalPrice(cartItems))+" VND</h5>\r\n" + 
+        		"                                        </div>\r\n" + 
+        		"                                        <div class=\"cart-btns\">\r\n" + 
+        		"                                            <a href=\"./checkout1\">Xem giỏ hàng</a>\r\n" + 
+        		"                                            <a href=\"#\">Thanh toán  <i class=\"fa fa-arrow-circle-right\"></i></a>\r\n" + 
+        		"                                        </div>\r\n" + 
+        		"                                    </div>\r\n" + 
+        		"                                </div>");
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
 
-        return "redirect:/";
     }
 
     @GetMapping("sub")
