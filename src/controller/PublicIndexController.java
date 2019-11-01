@@ -31,6 +31,8 @@ import model.Category;
 import model.Customer;
 import model.Product;
 import model.Slide;
+import org.apache.tiles.autotag.core.runtime.annotation.Parameter;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequestMapping("")
@@ -56,10 +58,11 @@ public class PublicIndexController {
     }
 
     @GetMapping({"", "{page}"})
-    public String index(ModelMap modelMap, HttpSession session, @PathVariable(value = "page", required = false) Integer page) {
+    public String index(ModelMap modelMap, HttpSession session,@PathVariable(value = "page", required = false) Integer page) {
         if (page == null) {
             page = 1;
         }
+        
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
@@ -70,9 +73,7 @@ public class PublicIndexController {
             page = 1;
         }
         int offset = (page - 1) * PageDefine.PUBLIC_ROW_COUNT;
-        List<Product> listPro = proDAO.getItemsPagination(offset);
-//		List<Slide> listSlide = slideDAO.getItems();
-//		modelMap.addAttribute("listSlide", listSlide);
+        List<Product> listPro = proDAO.getListSortProduct(offset, " id DESC");
         modelMap.addAttribute("listPro", listPro);
         modelMap.addAttribute("sumPage", sumPage);
         modelMap.addAttribute("page", page);
@@ -86,7 +87,7 @@ public class PublicIndexController {
         }
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("count", count);
-        session.setAttribute("myCartTotal",Utils.Process.totalPrice(cartItems));
+        session.setAttribute("myCartTotal", Utils.Process.totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
         return "public.index";
     }
@@ -101,7 +102,6 @@ public class PublicIndexController {
         int sumPage = (int) Math.ceil((float) totalRow / PageDefine.ADMIN_ROW_COUNT);
         int offset = (page - 1) * PageDefine.ADMIN_ROW_COUNT;
         List<Product> listPro = proDAO.getResultItemsPagination(offset, data);
-
         modelMap.addAttribute("data", data);
         modelMap.addAttribute("listPro", listPro);
         modelMap.addAttribute("sumPage", sumPage);
@@ -127,20 +127,49 @@ public class PublicIndexController {
         return "public.search";
     }
 
-    @GetMapping({"cat/{cid}"})
-    public String searchCat(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page, @PathVariable(value = "cid", required = false) Integer id) {
+    @GetMapping({"sort", "sort/{page}"})
+    public String sort(ModelMap modelMap, @RequestParam(value = "status", required = false) Integer status, HttpSession session, @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) {
             page = 1;
         }
-        int totalRow = proDAO.countResultItemsCat(id);
-        int sumPage = (int) Math.ceil((float) totalRow / PageDefine.ADMIN_ROW_COUNT);
-        int offset = (page - 1) * PageDefine.ADMIN_ROW_COUNT;
-        List<Product> listPro = proDAO.getItemsPaginationByCat(offset, id);
-        List<Category> listCategory = catDAO.getCategory();
-        modelMap.addAttribute("listCategory", listCategory);
+        if(status ==null) status = 0;
+        String orderBy = "";
+        switch (status) {
+		case 0:
+			orderBy = "id DESC";
+			break;
+		case 1:
+			orderBy = "id ASC";
+			break;
+		case 2:
+			orderBy = "price DESC";
+			break;
+		case 3:
+			orderBy = "price ASC";
+			break;
+
+		default:
+			break;
+		}
+        cartItems = (List<Cart>) session.getAttribute("myCartItems");
+        if (cartItems == null) {
+            cartItems = new ArrayList<>();
+        }
+        int totalRow = proDAO.countItems();
+        int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
+        if (page <= 0 || page > sumPage) {
+            page = 1;
+        }
+        int offset = (page - 1) * PageDefine.PUBLIC_ROW_COUNT;
+        List<Product> listPro = proDAO.getListSortProduct(offset, orderBy);
         modelMap.addAttribute("listPro", listPro);
         modelMap.addAttribute("sumPage", sumPage);
         modelMap.addAttribute("page", page);
-        return "public.index";
+        List<Category> listCategory = catDAO.getCategory();
+        modelMap.addAttribute("listCategory", listCategory);
+        List<Product> listProPopular = proDAO.getListPopular();
+        modelMap.addAttribute("listProPopular", listProPopular);
+        return "public.sort";
     }
+
 }

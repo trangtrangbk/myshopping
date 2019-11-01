@@ -71,6 +71,7 @@
 								<label for="payment-1">
 									<span></span>
 									Thanh toán tiền mặt khi nhận hàng
+									
 								</label>
 								<div class="caption">
 									<p>Quý khách sẽ thanh toán bằng tiền mặt khi nhận hàng. Vui lòng bấm nút " Đặt hàng" để hoàn tất.</p>

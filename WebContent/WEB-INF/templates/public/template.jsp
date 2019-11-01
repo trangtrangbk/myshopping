@@ -10,9 +10,8 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Trang chủ</a></li>
-						<li><a href="#">Sản phẩm</a></li>
-						<li><a href="#">Liên hệ</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath }">Trang chủ</a></li>						
+						<li><a href="${pageContext.request.contextPath }/contact">Liên hệ</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>

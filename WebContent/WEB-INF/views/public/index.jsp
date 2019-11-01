@@ -24,7 +24,7 @@
 						<c:forEach var="category" items="${listCategory}">
 							<div>
 								<a
-									href="${pageContext.request.contextPath }/cat/${category.cid}">
+									href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
 									<label for="brand-1"> <span> ${category.cname}</span>
 								</label>
 								</a>
@@ -70,8 +70,10 @@
 					<div class="store-sort">
 						<label> Sắp xếp: <select class="input-select" id="price"
 							onchange="priceChanged(this)">
-								<option value="0">Giá cao đến thấp</option>
-								<option value="1">Giá thấp đến cao</option>
+								<option value="0">Mới nhất</option>
+								<option value="1">Cũ nhất</option>
+								<option value="2">Giá cao đến thấp</option>
+								<option value="3">Giá thấp đến cao</option>
 						</select>
 						</label>
 					</div>
@@ -83,8 +85,9 @@
                     function priceChanged(obj)
                     {
                         var value = obj.value;
-                    ${listPro} = ${StringUtils.sort(value,listPro)};
-                        location.reload();
+                        var url = '<%=request.getContextPath()%>';
+                        window.location.href = url+"/sort?status=" + value;
+
                     }
 
                 </script>

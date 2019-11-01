@@ -70,6 +70,7 @@ public class PublicCheckoutController {
         modelMap.addAttribute("customer",customer);
         modelMap.addAttribute("myCartItems", myCartItems);
         modelMap.addAttribute("myCartTotal",myCartTotal);
+        
         return "public.checkout-step2";
     }
 
@@ -112,6 +113,8 @@ public class PublicCheckoutController {
     public String confirm(HttpSession session) {
     	Order order = (Order) session.getAttribute("objOrder");
     	Customer customer = (Customer) session.getAttribute("customer");
+    	int customerId = 0;
+    	if(customer != null) customerId = customer.getId();
     	List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
     	orderDAO.addItem(order);
     	order = orderDAO.getItemLastest();
@@ -121,7 +124,7 @@ public class PublicCheckoutController {
                 item.setPro_id(cart.getProduct().getId());
                 item.setQuatity(cart.getQuatity());
                 item.setOrder_id(order.getOrder_id());
-                item.setCustomer_id(customer.getId());
+                item.setCustomer_id(customerId);
                 cartOrdDAO.addItem(item);
             }
         }
