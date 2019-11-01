@@ -19,8 +19,8 @@
 
                 <!-- aside Widget -->
                 <div class="aside">	
-                    <h3 class="aside-title">Hãng Máy Tính </h3>
-                    <div>
+                    <h3 class="aside-title">DANH MỤC </h3>
+                    <div style="margin-left: 10px">
                         <c:forEach var="category" items="${listCategory}">
                             <div>
                                 <a href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">

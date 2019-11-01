@@ -93,6 +93,7 @@ public class PublicCatController {
 		default:
 			break;
 		}
+        modelMap.addAttribute("orderby",status);
         int totalRow = proDAO.countItemsByCid(cid);
         int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
         if (page <= 0 || page > sumPage) {

@@ -19,8 +19,8 @@
 
                 <!-- aside Widget -->
                 <div class="aside">	
-                    <h3 class="aside-title">Hãng Máy Tính </h3>
-                    <div>
+                    <h3 class="aside-title">DANH MỤC </h3>
+                    <div style="margin-left: 10px">
                         <c:forEach var="category" items="${listCategory}">
                             <div>
                                 <a href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
@@ -66,7 +66,7 @@
                     <div class="store-sort">
                         <label>
                             Sắp xếp:
-                            <select class="input-select" id="price" onchange="priceChanged(this)">
+                            <select class="input-select" id="price" onchange="priceChanged(this,${idCategory })">
                                 <option hidden>Chọn kiểu lọc</option>
                                  <option value="0">Mới nhất</option>
 								<option value="1">Cũ nhất</option>
@@ -77,15 +77,14 @@
                     </div>							
                 </div>
                 <!-- /store top filter -->
-                <input type="hidden" id="icd" value="${idCategory}">
                 <script language="javascript">
                     // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
                     // obj là tham số truyền vào và cũng chính là thẻ select
-                    function priceChanged(obj)
+                    function priceChanged(obj,cid)
                    {
                         var value = obj.value;
                         var url = '<%=request.getContextPath()%>';
-                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+icd;
+                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+cid;
 
                     }
                 </script>

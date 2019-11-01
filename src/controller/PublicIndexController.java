@@ -151,6 +151,7 @@ public class PublicIndexController {
 		default:
 			break;
 		}
+        modelMap.addAttribute("orderby",status);
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
