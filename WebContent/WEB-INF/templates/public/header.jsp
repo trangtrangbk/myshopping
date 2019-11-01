@@ -134,8 +134,8 @@
                                             <h5>TỔNG: ${en.format(myCartTotal)} VND</h5>
                                         </div>
                                         <div class="cart-btns">
-                                            <a href="./checkout1">Xem giỏ hàng</a>
-                                            <a href="#">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="${pageContext.request.contextPath }/checkout1">Xem giỏ hàng</a>
+                                            <a href="${pageContext.request.contextPath }/checkout-step2">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>
