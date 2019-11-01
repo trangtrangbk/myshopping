@@ -66,9 +66,9 @@
                     <div class="store-sort">
                         <label>
                             Sắp xếp:
-                            <select class="input-select" id="price" onchange="priceChanged(this,${idCategory })">
+                            <select class="input-select" id="price" onchange="priceChanged(this)">
                                 <option hidden>Chọn kiểu lọc</option>
-                               <option value="0">Mới nhất</option>
+                                 <option value="0">Mới nhất</option>
 								<option value="1">Cũ nhất</option>
 								<option value="2">Giá cao đến thấp</option>
 								<option value="3">Giá thấp đến cao</option>
@@ -77,15 +77,15 @@
                     </div>							
                 </div>
                 <!-- /store top filter -->
-               
+                <input type="hidden" id="icd" value="${idCategory}">
                 <script language="javascript">
                     // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
                     // obj là tham số truyền vào và cũng chính là thẻ select
-                    function priceChanged(obj,cid)
+                    function priceChanged(obj)
                    {
                         var value = obj.value;
                         var url = '<%=request.getContextPath()%>';
-                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+cid;
+                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+icd;
 
                     }
                 </script>
@@ -99,24 +99,11 @@
                                     <div class="product-img">
                                     <c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
                                     <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
-                                  
+                                    
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">Laptop</p>
-                                    <h3 class="product-name"><a href="${urlDetail}">
-                                    <c:choose>
-												<c:when test="${objPro.name.length() > 25 }">
-													<c:set var="name" value="${objPro.name.substring(0,25)}"></c:set>
-													<p>${name }...</p>
-												</c:when>
-												<c:otherwise>
-													<c:set var="name" value="${objPro.name }"></c:set>
-													<p>${name }</p>
-												</c:otherwise>
-											</c:choose>
-											
-										</a>
-                                    </a></h3>
+                                    <h3 class="product-name"><a href="${urlDetail}"><p>${objPro.name }</p></a></h3>
                                     <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
                                 </div>
                                <div class="add-to-cart">
@@ -138,7 +125,7 @@
                     <ul class="store-pagination">
                         <c:if test="${page>1 }">
                             <li class=""><a
-                                    href="${pageContext.request.contextPath }/${page-1}"
+                                    href="${pageContext.request.contextPath }/sortcat/${page-1}?status=${orderby}&cid=${icdCategory}"
                                     aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                             </c:if>
                             <c:forEach begin="1" end="${sumPage}" var="i">
@@ -152,10 +139,10 @@
                                     </c:otherwise>
                                 </c:choose>
                             <li class="${active }"><a
-                                    href="${pageContext.request.contextPath }/${i}">${i} </a></li>
+                                    href="${pageContext.request.contextPath }/sortcat/${i}?status=${orderby}&cid=${icdCategory}">${i} </a></li>
                             </c:forEach>
                             <c:if test="${page<sumPage }">
-                            <li><a href="${pageContext.request.contextPath }/${page+1}"
+                            <li><a href="${pageContext.request.contextPath }/sortcat/${page+1}?status=${orderby}&cid=${icdCategory}"
                                    aria-label="Next"><span aria-hidden="true">»</span></a></li>
                             </c:if>
                     </ul>

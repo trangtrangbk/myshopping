@@ -214,7 +214,7 @@ public class AdminProductController {
 					listName = listName  + fileName + ":";
 					
 					picture.transferTo(new File(filPath));
-					System.out.println(dirPath + File.separator + fileName);
+					System.out.println("sources: "+dirPath + File.separator + fileName);
 				}
 			else {
 				ra.addFlashAttribute("msg",MessageDefine.MSG_ERRORFILE);

@@ -1,4 +1,3 @@
-
 <%@page import="Utils.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
@@ -66,45 +65,47 @@
                     <div class="store-sort">
                         <label>
                             Sắp xếp:
-                            <select class="input-select" id="price" onchange="priceChanged(this,${idCategory })">
-                                <option hidden>Chọn kiểu lọc</option>
-                               <option value="0">Mới nhất</option>
-								<option value="1">Cũ nhất</option>
-								<option value="2">Giá cao đến thấp</option>
-								<option value="3">Giá thấp đến cao</option>
-                            </select>
                         </label>
+                        <select class="input-select" onchange="priceChanged(this)">
+                            <option hidden>Chọn kiểu lọc</option>
+                            <option value="0">Mới nhất</option>
+							<option value="1">Cũ nhất</option>
+							<option value="2">Giá cao đến thấp</option>
+							<option value="3">Giá thấp đến cao</option>
+                        </select>
+
                     </div>							
                 </div>
                 <!-- /store top filter -->
-               
                 <script language="javascript">
                     // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
                     // obj là tham số truyền vào và cũng chính là thẻ select
-                    function priceChanged(obj,cid)
-                   {
+                    function priceChanged(obj)
+                    {
                         var value = obj.value;
                         var url = '<%=request.getContextPath()%>';
-                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+cid;
-
+                        window.location.href = url + "/sort?status=" + value;
                     }
+
                 </script>
                 <!-- store products -->
                 <div class="row">
                     <!-- product -->
-                    <c:forEach items="${listPro}" var="objPro">
-                        <div class="col-md-4 col-xs-6">
-                            <div class="product">
-                                <c:url var="urlDetail" value="/detail/${StringUtils.makeSlug(objPro.name)}-${objPro.id }"></c:url>
-                                    <div class="product-img">
-                                    <c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
-                                    <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
-                                  
-                                </div>
-                                <div class="product-body">
-                                    <p class="product-category">Laptop</p>
-                                    <h3 class="product-name"><a href="${urlDetail}">
-                                    <c:choose>
+                    <div class="form12234">
+                        <c:forEach items="${listPro}" var="objPro">
+
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <c:url var="urlDetail" value="/detail/${StringUtils.makeSlug(objPro.name)}-${objPro.id }"></c:url>
+                                        <div class="product-img">
+                                        <c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
+                                        <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
+                                       
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">Laptop</p>
+                                        <h3 class="product-name"><a href="${urlDetail}">
+                                        <c:choose>
 												<c:when test="${objPro.name.length() > 25 }">
 													<c:set var="name" value="${objPro.name.substring(0,25)}"></c:set>
 													<p>${name }...</p>
@@ -116,49 +117,50 @@
 											</c:choose>
 											
 										</a>
-                                    </a></h3>
-                                    <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
-                                </div>
-                               <div class="add-to-cart">
+                                        </a></h3>
+                                        <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
+                                    </div>
+                                    <div class="add-to-cart">
 									<button class="add-to-cart-btn" onclick="addcart(${objPro.id})">
 										<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
 									</button>
 								</div>
-                            </div>
+                                </div>
 
-                        </div>
-                    </c:forEach>
-                    <!-- /product -->
+                            </div>
+                        </c:forEach>
+                        <!-- /product -->
+                    </div>
                     <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
                 </div>
                 <!-- /store products -->
 
                 <!-- store bottom filter -->
-                <div class="store-filter clearfix">            
-                    <ul class="store-pagination">
-                        <c:if test="${page>1 }">
-                            <li class=""><a
-                                    href="${pageContext.request.contextPath }/${page-1}"
-                                    aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                            </c:if>
-                            <c:forEach begin="1" end="${sumPage}" var="i">
-                                <c:set var="active" value="" />
-                                <c:choose>
-                                    <c:when test="${i == page}">
-                                        <c:set var="active" value="active" />
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="active" value="" />
-                                    </c:otherwise>
-                                </c:choose>
-                            <li class="${active }"><a
-                                    href="${pageContext.request.contextPath }/${i}">${i} </a></li>
-                            </c:forEach>
-                            <c:if test="${page<sumPage }">
-                            <li><a href="${pageContext.request.contextPath }/${page+1}"
-                                   aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                            </c:if>
-                    </ul>
+                <div class="store-filter clearfix"> 
+                        <ul class="store-pagination">
+                            <c:if test="${page>1 }">
+                                <li class=""><a
+                                        href="${pageContext.request.contextPath }/sort/${page-1}?status=${orderby}"
+                                        aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                </c:if>
+                                <c:forEach begin="1" end="${sumPage}" var="i">
+                                    <c:set var="active" value="" />
+                                    <c:choose>
+                                        <c:when test="${i == page}">
+                                            <c:set var="active" value="active" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="active" value="" />
+                                        </c:otherwise>
+                                    </c:choose>
+                                <li class="${active }"><a
+                                        href="${pageContext.request.contextPath }/sort/${i}?status=${orderby}">${i} </a></li>
+                                </c:forEach>
+                                <c:if test="${page<sumPage }">
+                                <li><a href="${pageContext.request.contextPath }/sort/${page+1}?status=${orderby}"
+                                       aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                </c:if>
+                        </ul>
                 </div>
                 <!-- /store bottom filter -->
             </div>

@@ -21,6 +21,14 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/public/index.jsp"></put-attribute>
 	</definition>
+        <definition name="public.sort" extends="public.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/public/sort.jsp"></put-attribute>
+	</definition>
+        <definition name="public.sortcat" extends="public.template">
+		<put-attribute name="content"
+			value="/WEB-INF/views/public/sort-cat.jsp"></put-attribute>
+	</definition>
 	<definition name="public.search" extends="public.template">
 		<put-attribute name="content"
 			value="/WEB-INF/views/public/searchResult.jsp"></put-attribute>
