@@ -22,44 +22,80 @@ import dao.ProductDAO;
 import define.PageDefine;
 import model.Category;
 import model.Product;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("cat")
 public class PublicCatController {
-	@Autowired
-	private CategoryDAO catDAO;
-	@Autowired
-	private ProductDAO proDAO;
-	
 
-	@ModelAttribute
-	public void leftbar(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {		
-		Locale localeEN = new Locale("en", "EN");
-	    NumberFormat en = NumberFormat.getInstance(localeEN);
-		modelMap.addAttribute("en", en);
-		request.setAttribute("catDAO", catDAO);	
-		modelMap.addAttribute("proDAO", proDAO);
-	}
-	@GetMapping({ "{cat}-{cid}", "{cat}-{cid}/{page}" })
-	public String index(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page,@PathVariable("cid") int cid) {
-		if (page == null)
-			page = 1;
-		int totalRow = proDAO.countItemsByCid(cid);
-		int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
-		if (page <= 0 || page > sumPage)
-			page = 1;
-		int offset = (page - 1) * PageDefine.PUBLIC_ROW_COUNT;
-		System.out.println("total: " + totalRow);
-		List<Product> listPro = proDAO.getItemsPaginationByCat(offset, cid);
-		System.out.println(listPro.size());
-		modelMap.addAttribute("cid", cid);
-                List<Category> listCategory = catDAO.getCategory();
-                modelMap.addAttribute("listCategory", listCategory);
-		modelMap.addAttribute("listPro", listPro);
-		modelMap.addAttribute("sumPage", sumPage);
-		modelMap.addAttribute("page", page);	
-		modelMap.addAttribute("cname", catDAO.getItem(cid).getCname());
-		return "public.cat";
-	}
+    @Autowired
+    private CategoryDAO catDAO;
+    @Autowired
+    private ProductDAO proDAO;
 
+    @ModelAttribute
+    public void leftbar(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Locale localeEN = new Locale("en", "EN");
+        NumberFormat en = NumberFormat.getInstance(localeEN);
+        modelMap.addAttribute("en", en);
+        request.setAttribute("catDAO", catDAO);
+        modelMap.addAttribute("proDAO", proDAO);
+    }
+
+    @GetMapping({"{cat}-{cid}", "{cat}-{cid}/{page}"})
+    public String index(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page, @PathVariable("cid") int cid) {
+        if (page == null) {
+            page = 1;
+        }
+        int totalRow = proDAO.countItemsByCid(cid);
+        int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
+        if (page <= 0 || page > sumPage) {
+            page = 1;
+        }
+        int offset = (page - 1) * PageDefine.PUBLIC_ROW_COUNT;
+        System.out.println("total: " + totalRow);
+        System.out.println("------------------------"+cid);
+        List<Product> listPro = proDAO.getItemsPaginationByCat(offset, cid);
+        System.out.println(listPro.size());
+        List<Category> listCategory = catDAO.getCategory();
+        modelMap.addAttribute("listCategory", listCategory);
+        modelMap.addAttribute("listPro", listPro);
+        modelMap.addAttribute("sumPage", sumPage);
+        modelMap.addAttribute("page", page);
+        modelMap.addAttribute("idCategory", cid);
+        modelMap.addAttribute("cname", catDAO.getItem(cid).getCname());
+        return "public.cat";
+    }
+
+    @GetMapping({"sortcat","sortcat/{page}"})
+    public String sortCat(ModelMap modelMap, @PathVariable(value = "page", required = false) Integer page, @RequestParam("cid") Integer cid, @RequestParam("status") Integer status) {
+        if (page == null) {
+            page = 1;
+        }
+        int totalRow = proDAO.countItemsByCid(cid);
+        int sumPage = (int) Math.ceil((float) totalRow / PageDefine.PUBLIC_ROW_COUNT);
+        if (page <= 0 || page > sumPage) {
+            page = 1;
+        }
+        int offset = (page - 1) * PageDefine.PUBLIC_ROW_COUNT;
+        System.out.println("total: " + totalRow);
+        List<Product> listPro;
+        if (status == 0) {
+            listPro = proDAO.getSortItemsPaginationByCat(offset,cid, "DESC");
+            modelMap.addAttribute("orderby", "0");
+        } else {
+            modelMap.addAttribute("orderby", "1");
+            listPro = proDAO.getSortItemsPaginationByCat(offset,cid, "ASC");
+        }
+        System.out.println(listPro.size());
+        List<Category> listCategory = catDAO.getCategory();
+        modelMap.addAttribute("listCategory", listCategory);
+        modelMap.addAttribute("listPro", listPro);
+        modelMap.addAttribute("sumPage", sumPage);
+        modelMap.addAttribute("page", page);
+        modelMap.addAttribute("idCategory", cid);
+        modelMap.addAttribute("cname", catDAO.getItem(cid).getCname());
+        modelMap.addAttribute("messenge", "cat");
+        return "public.sortcat";
+    }
 }

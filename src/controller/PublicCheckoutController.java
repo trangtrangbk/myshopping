@@ -64,6 +64,7 @@ public class PublicCheckoutController {
     @GetMapping("checkout-step2")
     public String checkout2(ModelMap modelMap, HttpSession session) {
         modelMap.addAttribute("proDAO", proDAO);
+        
         return "public.checkout-step2";
     }
 

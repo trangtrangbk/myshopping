@@ -75,7 +75,7 @@
                     </div>							
                 </div>
                 <!-- /store top filter -->
-                <input type="hidden" id="icd123" value="${idCategory}">
+                <input type="hidden" id="icd" value="${idCategory}">
                 <script language="javascript">
                     // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
                     // obj là tham số truyền vào và cũng chính là thẻ select
@@ -83,8 +83,7 @@
                    {
                         var value = obj.value;
                         var url = '<%=request.getContextPath()%>';
-                        var icd =  document.getElementById("icd123").value;
-                        alert("sap xep " +icd);
+                        var icd =  document.getElementById("icd").value;
                         window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+icd;
 
                     }
@@ -126,7 +125,7 @@
                     <ul class="store-pagination">
                         <c:if test="${page>1 }">
                             <li class=""><a
-                                    href="${pageContext.request.contextPath }/${page-1}"
+                                    href="${pageContext.request.contextPath }/sortcat/${page-1}?status=${orderby}&cid=${icdCategory}"
                                     aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                             </c:if>
                             <c:forEach begin="1" end="${sumPage}" var="i">
@@ -140,10 +139,10 @@
                                     </c:otherwise>
                                 </c:choose>
                             <li class="${active }"><a
-                                    href="${pageContext.request.contextPath }/${i}">${i} </a></li>
+                                    href="${pageContext.request.contextPath }/sortcat/${i}?status=${orderby}&cid=${icdCategory}">${i} </a></li>
                             </c:forEach>
                             <c:if test="${page<sumPage }">
-                            <li><a href="${pageContext.request.contextPath }/${page+1}"
+                            <li><a href="${pageContext.request.contextPath }/sortcat/${page+1}?status=${orderby}&cid=${icdCategory}"
                                    aria-label="Next"><span aria-hidden="true">»</span></a></li>
                             </c:if>
                     </ul>
