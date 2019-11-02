@@ -134,13 +134,8 @@
                                             <h5>TỔNG: ${en.format(myCartTotal)} VND</h5>
                                         </div>
                                         <div class="cart-btns">
-<<<<<<< HEAD
-                                            <a href="${pageContext.request.contextPath }/checkout1">Xem giỏ hàng</a>
-                                            <a href="${pageContext.request.contextPath }/checkout-step2">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
-=======
                                             <a href="./checkout1">Xem giỏ hàng</a>
-                                            <a href="./checkout-step2">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a>
->>>>>>> a5b8fa5b1adb73ded9b62915a9849e92a42226ef
+                                            <a href="./checkout-step2">Thanh toán  <i class="fa fa-arrow-circle-right"></i></a> 
                                         </div>
                                     </div>
                                 </div>

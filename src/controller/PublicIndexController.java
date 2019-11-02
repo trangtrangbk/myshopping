@@ -62,7 +62,7 @@ public class PublicIndexController {
         if (page == null) {
             page = 1;
         }
-        
+
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
@@ -132,25 +132,27 @@ public class PublicIndexController {
         if (page == null) {
             page = 1;
         }
-        if(status ==null) status = 0;
+        if (status == null) {
+            status = 0;
+        }
         String orderBy = "";
         switch (status) {
-		case 0:
-			orderBy = "id DESC";
-			break;
-		case 1:
-			orderBy = "id ASC";
-			break;
-		case 2:
-			orderBy = "price DESC";
-			break;
-		case 3:
-			orderBy = "price ASC";
-			break;
+            case 0:
+                orderBy = "id DESC";
+                break;
+            case 1:
+                orderBy = "id ASC";
+                break;
+            case 2:
+                orderBy = "price DESC";
+                break;
+            case 3:
+                orderBy = "price ASC";
+                break;
 
-		default:
-			break;
-		}
+            default:
+                break;
+        }
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();
