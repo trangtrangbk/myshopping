@@ -32,7 +32,7 @@
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-login100" style="background: linear-gradient(to bottom, #ccccff 0%, #6666ff 100%);">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action = "" method = "post">
 					<span class="login100-form-logo">
@@ -40,7 +40,7 @@
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Đăng nhập
+							MEGA-T
 					</span>
 					<p style ="color:red">${msg }</p>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
@@ -54,7 +54,7 @@
 					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							Đăng nhập
 						</button>						
 					</div>
 					<a href="${pageContext.request.contextPath }/signup" class="input100">Chưa có tài khoản? Đăng kí ngay</a>

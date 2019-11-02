@@ -33,7 +33,7 @@
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-login100" style="background: linear-gradient(to bottom, #ccccff 0%, #6666ff 100%);">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action = "${pageContext.request.contextPath }/customer/add" method = "post">
 					<span class="login100-form-logo">
@@ -47,32 +47,32 @@
 					<div class="wrap-input100 validate-input" data-validate = "Enter your fullname">
 						<input class="input100" type="text" name="name" placeholder="Fullname">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-						<form:errors cssStyle="color:red" path="objCus.name"></form:errors>
+						<form:errors cssStyle="color:#b91919" path="objCus.name"></form:errors>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-						<form:errors cssStyle="color:red" path="objCus.username"></form:errors>
-					</div>
+						<form:errors cssStyle="color:#b91919" path="objCus.username"></form:errors>
+					</div>					
 					<div class="wrap-input100 validate-input" data-validate = "Enter your email">
-						<input class="input100" type="text" name="email" placeholder="Email">
-						<form:errors cssStyle="color:red" path="objCus.email"></form:errors></br>
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						<input class="input100" type="text" name="email" placeholder="Email">						
+						<span class="focus-input100" data-placeholder="&#xf1d8;"></span>
+						<form:errors cssStyle="color:#b91919" path="objCus.email"></form:errors></br>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Enter your phone">
 						<input class="input100" type="text" name="phone" placeholder="Phone">
-						<form:errors cssStyle="color:red" path="objCus.phone"></form:errors></br>
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						<span class="focus-input100" data-placeholder="&#xf2b9;"></span>
+						<form:errors cssStyle="color:#b91919" path="objCus.phone"></form:errors></br>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Enter your address">
-						<input class="input100" type="text" name="address" placeholder="address">
-						<form:errors cssStyle="color:red" path="objCus.phone"></form:errors></br>
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						<input class="input100" type="text" name="address" placeholder="address">						
+						<span class="focus-input100" data-placeholder="&#xf109;"></span>
+						<form:errors cssStyle="color:#b91919" path="objCus.phone"></form:errors></br>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-						<form:errors cssStyle="color:red" path="objCus.password"></form:errors>
+						<form:errors cssStyle="color:#b91919" path="objCus.password"></form:errors>
 					</div>
 					
 					<div class="container-login100-form-btn">

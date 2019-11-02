@@ -178,7 +178,6 @@ iframe {
 }
 
 .container-login100::before {
-  content: "";
   display: block;
   position: absolute;
   z-index: -1;

@@ -32,7 +32,7 @@
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-login100" style="background: linear-gradient(to bottom, #ccccff 0%, #6666ff 100%);">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action = "" method = "post">
 					<span class="login100-form-logo">
@@ -58,7 +58,7 @@
 					</div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
-							Login
+							Đăng nhập
 						</button>
 					</div>
 				</form>

@@ -29,7 +29,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/auth/css/main.css">
 <!--===============================================================================================-->
 </head>
-<body style="background-color: #666666;">
+<body style="background: linear-gradient(to bottom, #ccccff 0%, #6666ff 100%);">
 	
 	<div class="limiter">
 		<div class="container-login100">
