@@ -6,7 +6,7 @@
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
-				<form action="${pageContext.request.contextPath }/checkout-step2" method="post">
+				<form action="${pageContext.request.contextPath }/checkout-step2" method="post" modelAttribute="order">
 				<div class="row">
 					<div class="col-md-7">
 						<!-- Billing Details -->

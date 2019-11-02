@@ -58,7 +58,7 @@ public class PublicIndexController {
     }
 
     @GetMapping({"", "{page}"})
-    public String index(ModelMap modelMap, HttpSession session,@PathVariable(value = "page", required = false) Integer page) {
+    public String index(ModelMap modelMap, HttpSession session, @PathVariable(value = "page", required = false) Integer page) {
         if (page == null) {
             page = 1;
         }
@@ -149,17 +149,12 @@ public class PublicIndexController {
             case 3:
                 orderBy = "price ASC";
                 break;
-
-<<<<<<< HEAD
             default:
                 break;
         }
-=======
-		default:
-			break;
-		}
-        modelMap.addAttribute("orderby",status);
->>>>>>> a62f67b429106991588223331879f5ac394b2173
+
+        modelMap.addAttribute("orderby", status);
+
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();

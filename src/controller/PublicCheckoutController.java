@@ -37,6 +37,8 @@ import model.Customer;
 import model.GiftCode;
 import model.Order;
 import model.Product;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -52,6 +54,8 @@ public class PublicCheckoutController {
     private ProductDAO proDAO;
     @Autowired
     private GiftCodeDAO giftDAO;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @ModelAttribute
     public void leftbar(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -62,15 +66,16 @@ public class PublicCheckoutController {
     }
 
     @GetMapping("checkout-step2")
-    public String checkout2(ModelMap modelMap, HttpSession session) {    	
-    	Customer customer = (Customer ) session.getAttribute("customer");	
-    	List<Cart> myCartItems = (ArrayList<Cart>) session.getAttribute("myCartItems");
-    	Long myCartTotal = (Long) session.getAttribute("myCartTotal");
+    public String checkout2(ModelMap modelMap, HttpSession session) {
+        Customer customer = (Customer) session.getAttribute("customer");
+        List<Cart> myCartItems = (ArrayList<Cart>) session.getAttribute("myCartItems");
+        Long myCartTotal = (Long) session.getAttribute("myCartTotal");
         modelMap.addAttribute("proDAO", proDAO);
-        modelMap.addAttribute("customer",customer);
+        modelMap.addAttribute("customer", customer);
+        modelMap.addAttribute("order", new Customer());
         modelMap.addAttribute("myCartItems", myCartItems);
-        modelMap.addAttribute("myCartTotal",myCartTotal);
-        
+        modelMap.addAttribute("myCartTotal", myCartTotal);
+
         return "public.checkout-step2";
     }
 
@@ -81,12 +86,12 @@ public class PublicCheckoutController {
     }
 
     @PostMapping("checkout-step2")
-    public String checkout2(@RequestParam("giftcodes") String giftcode,@Valid @ModelAttribute("objOrder") Order objOrder,RedirectAttributes ra, HttpSession session, ModelMap modelMap) {
-    	List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
+    public String checkout2(@RequestParam("giftcodes") String giftcode, @Valid @ModelAttribute("objOrder") Order objOrder, @ModelAttribute("order") Customer orderCustomer, RedirectAttributes ra, HttpSession session, ModelMap modelMap) {
+        List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             ra.addFlashAttribute("msg", MessageDefine.NULL_CART);
             return "redirect:/checkout";
-        }        
+        }
         GiftCode objGift = giftDAO.getItem(giftcode);
         if (objGift == null) {
             System.out.println("giflcode null");
@@ -96,28 +101,40 @@ public class PublicCheckoutController {
         }
         objOrder.setStatus("Đang chờ");
         objOrder.setPayments("Thanh toán sau khi nhận hàng");
-        objOrder.setPaid("Chưa thanh toán");        
-        Customer customer = (Customer) session.getAttribute("customer");
+        objOrder.setPaid("Chưa thanh toán");
         objOrder.setBill((long) session.getAttribute("myCartTotal"));
-        System.out.println(objOrder.toString());        
+        System.out.println(objOrder.toString());
         long total = (long) session.getAttribute("myCartTotal");
         total -= total * objOrder.getGiftcode() / 100;
         session.setAttribute("myCartTotal", total);
         session.setAttribute("objOrder", objOrder);
         session.setAttribute("myCartItems", cartItems);
-       
+        if(orderCustomer != null){
+            session.setAttribute("orderCustomer", orderCustomer);
+        }
+        System.out.println("----------------" + orderCustomer.getEmail());
+        System.out.println("----------------" + orderCustomer.getName());
+        System.out.println("----------------" + orderCustomer.getPhone());
+        System.out.println("----------------" + orderCustomer.getAddress());
+
         return "public.confirm";
     }
-    
+
     @PostMapping("confirm")
     public String confirm(HttpSession session) {
-    	Order order = (Order) session.getAttribute("objOrder");
-    	Customer customer = (Customer) session.getAttribute("customer");
-    	int customerId = 0;
-    	if(customer != null) customerId = customer.getId();
-    	List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
-    	orderDAO.addItem(order);
-    	order = orderDAO.getItemLastest();
+        Order order = (Order) session.getAttribute("objOrder");
+        Customer customer = (Customer) session.getAttribute("customer");
+        int customerId = 0;
+        if (customer != null) {
+            customerId = customer.getId();
+        }
+        Customer orderCustomer = (Customer) session.getAttribute("orderCustomer");
+        if (orderCustomer == null) {
+            System.out.println("customer null");
+        }
+        List<Cart> cartItems = (List<Cart>) session.getAttribute("myCartItems");
+        orderDAO.addItem(order);
+        order = orderDAO.getItemLastest();
         if (cartItems != null) {
             for (Cart cart : cartItems) {
                 CartOrder item = new CartOrder();
@@ -128,10 +145,36 @@ public class PublicCheckoutController {
                 cartOrdDAO.addItem(item);
             }
         }
-    	session.removeAttribute("myCartItems");
+        System.out.println("----------------" + orderCustomer.getEmail());
+        System.out.println("----------------" + orderCustomer.getName());
+        System.out.println("----------------" + orderCustomer.getPhone());
+        System.out.println("----------------" + orderCustomer.getAddress());
+        String recipientAddress = orderCustomer.getEmail();
+        String subject = "Ban da dat hang thanh cong!";
+        String message = "Thông tin khách hàng:\n ";
+        message = message + "Ho va Ten: " + orderCustomer.getName() + "\nDia chi:     "
+                + orderCustomer.getAddress() + "\nDien Thoai:  "
+                + orderCustomer.getPhone() + "\nNgay order:  "
+                + java.time.LocalDateTime.now() + " \n\n\n";
+        message = message + "Name                                           Price               Quantity       \n\n";
+
+        for (int j = 0; j < cartItems.size(); j++) {
+            message += cartItems.get(j).getProduct().getName() + "                     "
+                    + cartItems.get(j).getProduct().getPrice() + "                     "
+                    + cartItems.get(j).getQuatity() + "\n";
+        }
+        // creates a simple e-mail object
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(recipientAddress);
+        email.setSubject(subject);
+        email.setText(message);
+        // sends the e-mail
+        mailSender.send(email);
+        session.removeAttribute("myCartItems");
         session.removeAttribute("count");
         session.removeAttribute("myCartTotal");
         session.removeAttribute("myCartNum");
+        session.removeAttribute("orderCustomer");
         return "order-success";
     }
 
@@ -209,7 +252,7 @@ public class PublicCheckoutController {
             ra.addFlashAttribute("msg", MessageDefine.NULL_CART);
             return "redirect:/checkout";
         }
-        
+
         return "redirect:/checkout-step2";
     }
 }
