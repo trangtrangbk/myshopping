@@ -67,7 +67,7 @@
 						</div>
 						<div class="payment-method">
 							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
+								<input type="radio" checked="checked" name="payment" id="payment-1">
 								<label for="payment-1">
 									<span></span>
 									Thanh toán tiền mặt khi nhận hàng

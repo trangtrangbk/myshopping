@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -141,6 +143,9 @@ public class CustomerController {
 	}
 	@GetMapping("history")
 	public String history(HttpSession session,ModelMap modelMap) {
+		Locale localeEN = new Locale("en", "EN");
+        NumberFormat en = NumberFormat.getInstance(localeEN);
+        modelMap.addAttribute("en", en);
 		Customer customer = (Customer)session.getAttribute("customer");
 		List<Integer> listOrderCustomer = orderDAO.getItemsByCustomer(customer.getId());
 		System.out.println(listOrderCustomer.size());

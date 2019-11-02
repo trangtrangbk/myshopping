@@ -150,9 +150,16 @@ public class PublicIndexController {
                 orderBy = "price ASC";
                 break;
 
+<<<<<<< HEAD
             default:
                 break;
         }
+=======
+		default:
+			break;
+		}
+        modelMap.addAttribute("orderby",status);
+>>>>>>> a62f67b429106991588223331879f5ac394b2173
         cartItems = (List<Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new ArrayList<>();

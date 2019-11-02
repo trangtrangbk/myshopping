@@ -27,44 +27,46 @@
 			<div class="container">
 				<!-- row -->
 				<c:set var="i" value="0"></c:set>
+				<div class="col-md-12">
 				<c:forEach items="${listOrderCustomer }" var="order">
 				<c:set var="i" value="${i+1 }"></c:set>
 				<c:set var="orderHistory" value = "${orderDAO.getItemById(order) }"></c:set>
 				<c:set var = "cartHistory" value ="${cartOrderDAO.getItemsByOrderId(order) }" ></c:set>
-					<div class="col-md-12">
 						<div class="col-md-12 order-details">
 						<div class="section-title text-center">
-							<h3 class="title">Order ${i}</h3>
+							<h3 class="title">ĐƠN HÀNG ${i}</h3>
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
-								<div><strong>TIME</strong></div>
+								<div><strong>Thời gian</strong></div>
 								<div>${orderHistory.date}</div>
 							</div>
 							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
+								<div><strong>Sản phẩm</strong></div>
+								<div><strong>Giá</strong></div>
 							</div>
-							<div class="order-products">
+							<div class="order-product">
 								<c:forEach items = "${cartHistory }"  var = "cart">
 								<c:set var = "product" value ="${proDAO.getItem(cart.pro_id) }" ></c:set>
 								<div class="order-col">
 									<div>${product.name } x ${cart.quatity }</div>
-									<div>${product.price } x ${cart.quatity } = ${product.price*cart.quatity }</div>
-									</c:forEach>
+									<div>${en.format(product.price) } vnd x ${cart.quatity } = ${en.format(product.price*cart.quatity) } vnd</div>
 								</div>
+								</c:forEach>
+							</div>
+							</div>
+							<div class="order-summary">
+							<div class="order-col">
+								<div><strong>Giảm giá</strong></div>
+								<div>-${orderHistory.giftcode}%</div>
 							</div>
 							<div class="order-col">
-								<div>Giftcode</div>
-								<div><strong>-${orderHistory.giftcode}%</strong></div>
+								<div><strong>TỔNG</strong></div>
+								<div><strong class="order-total">${en.format(orderHistory.bill)} vnd</strong></div>
 							</div>
-							<div class="order-col">
-								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">${orderHistory.bill}</strong></div>
-							</div>
-						</div>												
-					</div>
+							</div>																	
 					</div>
 					</c:forEach>
+					</div>
+					</div>
 			</div>	
-		</div>
