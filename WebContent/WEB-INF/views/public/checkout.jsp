@@ -73,14 +73,14 @@
                                                     <span>${en.format(cart.quatity * cart.product.price) }<sup>đ</sup></span>
                                                 </td>
                                                 <td class="cart_product_img">
-                                                    
+
                                                     <a href="javascript:void(0)" title="" onclick="updatequatity(${cart.product.id})">
-                                                    <button class="btn btn-warning"
-                                                            id="btupdate"
-                                                            ><i class="fa fa-refresh"></i></button></a>
+                                                        <button class="btn btn-warning"
+                                                                id="btupdate"
+                                                                ><i class="fa fa-refresh"></i></button></a>
                                                     <a href="${pageContext.request.contextPath }/cart/remove/${cart.product.id}">
-                                                    <button class="btn btn-danger"
-                                                            ><i class="fa fa-trash"></i></button></a>
+                                                        <button class="btn btn-danger"
+                                                                ><i class="fa fa-trash"></i></button></a>
                                                 </td>
 
                                             </tr>
@@ -112,7 +112,7 @@
                                 </ul>
 
                                 <div class="cart-btn mt-100">
-                                    <a href="./checkout-step2" class="btn amado-btn w-100" style="    display: inline-block;
+                                    <a href="javascript:void(0)" title="" onclick="checkcart(${count})" class="btn amado-btn w-100" style="    display: inline-block;
                                        min-width: 160px;
                                        height: 55px;
                                        color: #ffffff;
@@ -126,7 +126,7 @@
                                        width: 100%!important;
                                        text-align: center;
                                        white-space: nowrap;
-                                       vertical-align: middle;">Checkout</a>
+                                       vertical-align: middle;">Đặt Hàng</a>
                                 </div>
 
                                 <div class="cart-btn mt-100">
@@ -144,7 +144,7 @@
                                        width: 100%!important;
                                        text-align: center;
                                        white-space: nowrap;
-                                       vertical-align: middle;">Continue Shopping</a>
+                                       vertical-align: middle;">Tiếp Tục Mua Hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -157,13 +157,22 @@
 </div>
 <!-- /SECTION -->
 <script type="text/javascript">
-    function updatequatity(id){
-        var tmp = "#quatity-"+id;
+    function updatequatity(id) {
+        var tmp = "#quatity-" + id;
         var qty = $(tmp).val();
         window.location.href = "./cart/sub?id=" + id + "&qty=" + qty;
     }
 </script>
+<script type="text/javascript">
+    function checkcart(count) {
+        if (count == 0) {
+            alert("Quý khách chưa có sản phẩm nào trong giỏ hàng!");
+        } else {
+            window.location.href = "${pageContext.request.contextPath }/checkout-step2";
+        }
 
+    }
+</script>
 <script type="text/javascript">
     function deleteproduct(id) {
         var tmp = "#quatity-" + id;
