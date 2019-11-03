@@ -95,7 +95,7 @@ public class PublicCartController {
         		"                                        </div>\r\n" + 
         		"                                        <div class=\"cart-btns\">\r\n" + 
         		"                                            <a href=\"./checkout1\">Xem giỏ hàng</a>\r\n" + 
-        		"                                            <a href=\"#\">Thanh toán  <i class=\"fa fa-arrow-circle-right\"></i></a>\r\n" + 
+        		"                                            <a href='javascript:void(0)' onclick=\"checkcart("+ count+" )\">Thanh toán  <i class=\"fa fa-arrow-circle-right\"></i></a>\r\n" + 
         		"                                        </div>\r\n" + 
         		"                                    </div>\r\n" + 
         		"                                </div>");

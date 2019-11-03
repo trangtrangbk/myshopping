@@ -38,7 +38,7 @@
 							<c:set value="${i+1 }" var="i"></c:set>	
 						<tr>						
 							<td class= "text-center">Tháng ${i}</td>
-							<td class= "text-center">${bill }</td>
+							<td class= "text-center">${en.format(bill) }</td>
 							
 							<td class="text-left">						
                                     <a href="<%=request.getContextPath() %>/admin/revenue/${year}/detail-${i}" title="detail" class="btn btn-danger">Chi tiết</a>
