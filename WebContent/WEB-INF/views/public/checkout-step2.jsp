@@ -62,7 +62,7 @@
 							</div>
 							<div class="order-col">
 								<div><strong>Tổng</strong></div>
-								<div><strong class="order-total">${myCartTotal }</strong></div>
+								<div><strong class="order-total">${en.format(myCartTotal) }</strong></div>
 							</div>
 						</div>
 						<div class="payment-method">

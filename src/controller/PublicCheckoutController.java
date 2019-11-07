@@ -37,6 +37,8 @@ import model.Customer;
 import model.GiftCode;
 import model.Order;
 import model.Product;
+
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -169,7 +171,11 @@ public class PublicCheckoutController {
         email.setSubject(subject);
         email.setText(message);
         // sends the e-mail
-        mailSender.send(email);
+        try {
+			mailSender.send(email);
+		} catch (MailException e) {			
+			e.printStackTrace();
+		}
         session.removeAttribute("myCartItems");
         session.removeAttribute("count");
         session.removeAttribute("myCartTotal");
