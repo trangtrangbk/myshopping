@@ -94,8 +94,8 @@ public class PublicCartController {
         		"                                            <h5>TỔNG:"+ en.format(totalPrice(cartItems))+" VND</h5>\r\n" + 
         		"                                        </div>\r\n" + 
         		"                                        <div class=\"cart-btns\">\r\n" + 
-        		"                                            <a href=\"./checkout1\">Xem giỏ hàng</a>\r\n" + 
-        		"                                            <a href='javascript:void(0)' onclick=\"checkcart("+ count+" )\">Thanh toán  <i class=\"fa fa-arrow-circle-right\"></i></a>\r\n" + 
+        		"                                            <a href='javascript:void(0)' onclick=\"cart("+ count+" )\"> <i class=\"fa fa-arrow-circle-right\">Xem giỏ hàng</i></a>\r\n" + 
+        		"                                            <a href='javascript:void(0)' onclick=\"checkcart("+ count+" )\">  <i class=\"fa fa-arrow-circle-right\">Thanh toán</i></a>\r\n" + 
         		"                                        </div>\r\n" + 
         		"                                    </div>\r\n" + 
         		"                                </div>");

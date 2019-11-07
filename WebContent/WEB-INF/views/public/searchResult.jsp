@@ -8,52 +8,43 @@
 
 				<div class="w3ls_w3l_banner_nav_right_grid1 w3ls_w3l_banner_nav_right_grid1_veg">
 				<c:forEach items="${listPro }" var="objPro">
-				<div class="col-md-3 top_brand_left" style="padding-bottom: 30px">
-					<div class="hover14 column">
-						<div class="agile_top_brand_left_grid">
-							<div class="agile_top_brand_left_grid_pos">
-								<img src="${pageContext.request.contextPath }/resources/public/images/offer.png" alt=" " class="img-responsive" />
-							</div>
-							<div class="agile_top_brand_left_grid1">
-								<figure>
-									<div class="snipcart-item block">
-										<div class="snipcart-thumb">
-											<c:url var="urlDetail" value="/detail/${StringUtils.makeSlug(objPro.name)}-${objPro.id }"></c:url>
-											<a href="${urlDetail}"><c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
-									<img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" /></a>
-												<c:choose>
-										<c:when test="${objPro.name.length() <= 20 }">
-											<a href="${urlDetail}"><p>${objPro.name }</p></a>
-										</c:when>
-										<c:otherwise>
-											<a href="${urlDetail}"><p>${objPro.name.substring(0,20) }...</p></a>
-										</c:otherwise>
-									</c:choose>
-											<h4>${en.format(objPro.price) } Đ <span>Lượt xem : ${objPro.view }</span></h4>
-										</div>
-										<div class="snipcart-details top_brand_home_details">
-											<div class="snipcart-details top_brand_home_details">
-
-											<c:choose>
-												<c:when test="${customer == null }">
-												<a href="javascript:void(0)" title="" onclick="alert('Đăng nhập để mua hàng')">
+				<div class="col-md-4 col-xs-6">
+							<div class="product">
+								<c:url var="urlDetail"
+									value="/detail/${StringUtils.makeSlug(objPro.name)}-${objPro.id }"></c:url>
+								<div class="product-img">
+									<c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
+									<img style="display: block; height: 200px; max-width: 200px;"
+										src="${pageContext.request.contextPath }/fileUpload/${picture}"
+										alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Laptop</p>
+									<h3 class="product-name">
+										<a href="${urlDetail}"> 
+										<c:choose>
+												<c:when test="${objPro.name.length() > 25 }">
+													<c:set var="name" value="${objPro.name.substring(0,25)}"></c:set>
+													<p>${name }...</p>
 												</c:when>
 												<c:otherwise>
-												<a href="javascript:void(0)" title="" onclick="addcart(${objPro.id})">
+													<c:set var="name" value="${objPro.name }"></c:set>
+													<p>${name }</p>
 												</c:otherwise>
-											</c:choose><img alt=""
-												width="40px" height="40px"
-												src="${pageContext.request.contextPath }/resources/public/images/addcart.jpg">
-											</a>
-
-										</div>
-										</div>
-									</div>
-								</figure>
+											</c:choose>
+											
+										</a>
+									</h3>
+									<h4 class="product-price">${en.format(objPro.price)}đ</h4>
+								</div>
+								<div class="add-to-cart">
+									<button class="add-to-cart-btn" onclick="addcart(${objPro.id})">
+										<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+									</button>
+								</div>
 							</div>
+
 						</div>
-					</div>
-				</div>
 				</c:forEach>
 						<div class="clearfix"> </div>
 				<nav class="text-center" aria-label="...">
@@ -83,7 +74,6 @@
 		</div>
 		<script type="text/javascript">
 		function addcart(id){
-			alert("Đã thêm vào giỏ hàng");
 			$.ajax({
 				url: '<%=request.getContextPath()%>/cart/add',
 				type: 'POST',

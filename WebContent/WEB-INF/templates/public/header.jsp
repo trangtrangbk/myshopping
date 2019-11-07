@@ -95,8 +95,8 @@
                         <!-- SEARCH BAR -->
                         <div class="col-md-6">
                             <div class="header-search">
-                                <form>
-                                    <input class="input" placeholder="Tìm kiếm">
+                                <form action="${pageContext.request.contextPath}/search" method="GET">
+                                    <input class="input" name="input-data" placeholder="Tìm kiếm" required="false">
                                     <button class="search-btn">Tìm kiếm</button>
                                 </form>
                             </div>
@@ -153,11 +153,21 @@
         <!-- /HEADER -->
         <script type="text/javascript">
             function checkcart(count) {
-                if(count == 0){
+                if (count == 0) {
                     alert("Quý khách chưa có sản phẩm nào trong giỏ hàng!");
-                }else{
+                } else {
                     window.location.href = "${pageContext.request.contextPath }/checkout-step2";
                 }
-                
+
+            }
+        </script>
+        <script type="text/javascript">
+            function cart(count) {
+                if (count == 0) {
+                    alert("Quý khách chưa có sản phẩm nào trong giỏ hàng!");
+                } else {
+                            window.location.href = "${pageContext.request.contextPath }/checkout1";
+                }
+
             }
         </script>
