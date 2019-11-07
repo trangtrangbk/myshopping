@@ -35,7 +35,7 @@
 	<div class="limiter">
 		<div class="container-login100" style="background: linear-gradient(to bottom, #ccccff 0%, #6666ff 100%);">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" action = "${pageContext.request.contextPath }/customer/add" method = "post">
+				<form class="login100-form validate-form" action = "${pageContext.request.contextPath }/customer/add"  method = "post">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>

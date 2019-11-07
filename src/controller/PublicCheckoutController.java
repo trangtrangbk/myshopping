@@ -202,7 +202,6 @@ public class PublicCheckoutController {
         for (Cart list : cartItems) {
             count += list.getQuatity();
         }
-
         session.setAttribute("myCartItems", cartItems);
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", totalPrice(cartItems));
