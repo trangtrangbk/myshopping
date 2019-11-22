@@ -53,6 +53,8 @@ public class PublicIndexController {
         modelMap.addAttribute("en", en);
         request.setAttribute("catDAO", catDAO);
         modelMap.addAttribute("proDAO", proDAO);
+        List<Slide> listSlide = slideDAO.getItems();
+        modelMap.addAttribute("listSlide", listSlide);
         Customer customer = (Customer) session.getAttribute("customer");
         modelMap.addAttribute("customer", customer);
     }

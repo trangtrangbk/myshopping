@@ -86,7 +86,7 @@
                         <!-- LOGO -->
                         <div class="col-md-3">
                             <div class="header-logo">
-                                <a href="#" class="logo"> <img src="./img/logo.png" alt="">
+                                <a href="#" class="logo"> <img src="./resources/public/img/logo_1.png" width="200px" height="auto"  alt="">
                                 </a>
                             </div>
                         </div>
@@ -146,11 +146,15 @@
                         </div>
                         <!-- row -->
                     </div>
+
+                    <!-- /container -->
+
                     <!-- container -->
                 </div>
                 <!-- /MAIN HEADER -->
         </header>
         <!-- /HEADER -->
+
         <script type="text/javascript">
             function checkcart(count) {
                 if (count == 0) {
@@ -166,7 +170,7 @@
                 if (count == 0) {
                     alert("Quý khách chưa có sản phẩm nào trong giỏ hàng!");
                 } else {
-                            window.location.href = "${pageContext.request.contextPath }/checkout1";
+                    window.location.href = "${pageContext.request.contextPath }/checkout1";
                 }
 
             }

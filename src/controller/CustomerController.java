@@ -60,7 +60,11 @@ public class CustomerController {
 		modelMap.addAttribute("customer", customer);
 	}
 	@GetMapping("login")
-	public String login() {
+	public String login(HttpSession session) {
+            Customer c = (Customer) session.getAttribute("customer");
+            if(c != null){
+                return "redirect:/";
+            }
 		return "auth.login-customer";
 	}
 

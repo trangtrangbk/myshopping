@@ -14,6 +14,7 @@ import dao.CategoryDAO;
 import dao.OrderDAO;
 import dao.ProductDAO;
 import dao.UserDAO;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Product;
 import model.User;
@@ -31,11 +32,11 @@ public class AdminIndexController {
 	@Autowired
 	private OrderDAO orderDAO;
 	@ModelAttribute
-	public void getname(Principal principal,ModelMap modelMap){
+	public void getname(Principal principal,ModelMap modelMap,HttpSession session){
 		int newOrder = orderDAO.billUnchecked();
 		modelMap.addAttribute("newOrder", newOrder);
 		User user = userDAO.getItem(principal.getName());
-		modelMap.addAttribute("name",user.getFullname());
+		session.setAttribute("name",user.getFullname());
 		modelMap.addAttribute("id_current", 1);
 	}
 	@GetMapping()	

@@ -1,5 +1,9 @@
 package controller;
 
+import dao.UserDAO;
+import java.security.Principal;
+import javax.servlet.http.HttpSession;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,12 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("login")
 public class AuthController {
-	
+	@Autowired
+	private UserDAO userDAO;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping()
-	public String login(){
+	public String login( HttpSession session){
+             String user = (String) session.getAttribute("name");
+            if(user != null){
+                return "redirect:/admin";
+            }
 		return "auth.login";
 	}
 	
