@@ -18,15 +18,16 @@
                 <div class="aside">
                     <h3 class="aside-title">DANH MỤC</h3>
                     <div style="margin-left: 10px">
-                        <c:forEach var="category" items="${listCategory}">
-                            <div>
-                                <a
-                                    href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
-                                    <label for="brand-1"> <span> ${category.cname}</span>
-                                    </label>
-                                </a>
-                            </div>
-                        </c:forEach>
+                        <ul class="nav">
+                            <c:forEach var="category" items="${listCategory}">
+                                <li>
+                                    <a
+                                        href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
+                                        <b> ${category.cname}</b>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </div>
                 </div>
                 <!-- /aside Widget -->
@@ -63,7 +64,7 @@
             <!-- STORE -->
             <div id="store"class="col-md-9">
                 <!-- store top filter -->
-                <div class="row"  style="background-color: #000">     
+                <div class="row"  >     
                     <!-- /store top filter -->
                     <script language="javascript">
                         // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
@@ -84,7 +85,7 @@
                             <div class="slideshow-container">
                                 <c:forEach var="objSlide" items="${listSlide }">
                                     <div class="mySlides fade1">
-                                        <img src="${pageContext.request.contextPath }/fileUpload/${objSlide.picture}" style="width:100%" height="100px">
+                                        <img src="${pageContext.request.contextPath }/fileUpload/${objSlide.picture}" width="100%" height="100px">
                                     </div>
                                 </c:forEach>
                                 <div style="text-align:center">

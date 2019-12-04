@@ -20,17 +20,23 @@
                 <!-- aside Widget -->
                 <div class="aside">	
                     <h3 class="aside-title">DANH MỤC </h3>
-                    <div style="margin-left: 10px">
-                        <c:forEach var="category" items="${listCategory}">
-                            <div>
-                                <a href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">
-                                    <label for="brand-1">
-                                        <span>
-                                            ${category.cname}</span>
-                                    </label>
-                                </a>
-                            </div>
-                        </c:forEach>
+                    <div style="margin-left: 10px"> 
+                        <ul class="nav">
+                            <c:forEach var="category" items="${listCategory}"> 
+                                <c:choose>
+                                    <c:when test="${cname == category.cname}">
+                                        <c:set var="active" value="class='active1'"></c:set>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="active" value=""></c:set>
+                                    </c:otherwise>
+                                </c:choose>
+                                <li  >  <a href="${pageContext.request.contextPath }/cat/${category.cname}-${category.cid}">                                                       
+                                        <b ${active} >${category.cname}</b> 
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </div>
                 </div>
                 <!-- /aside Widget -->
@@ -68,24 +74,24 @@
                             Sắp xếp:
                             <select class="input-select" id="price" onchange="priceChanged(this,${idCategory })">
                                 <option hidden>Chọn kiểu lọc</option>
-                               <option value="0">Mới nhất</option>
-								<option value="1">Cũ nhất</option>
-								<option value="2">Giá cao đến thấp</option>
-								<option value="3">Giá thấp đến cao</option>
+                                <option value="0">Mới nhất</option>
+                                <option value="1">Cũ nhất</option>
+                                <option value="2">Giá cao đến thấp</option>
+                                <option value="3">Giá thấp đến cao</option>
                             </select>
                         </label>
                     </div>							
                 </div>
                 <!-- /store top filter -->
-               
+
                 <script language="javascript">
                     // Hàm xử lý khi thẻ select thay đổi giá trị được chọn
                     // obj là tham số truyền vào và cũng chính là thẻ select
-                    function priceChanged(obj,cid)
-                   {
+                    function priceChanged(obj, cid)
+                    {
                         var value = obj.value;
                         var url = '<%=request.getContextPath()%>';
-                        window.location.href = url+"/cat/sortcat?status=" + value+"&cid="+cid;
+                        window.location.href = url + "/cat/sortcat?status=" + value + "&cid=" + cid;
 
                     }
                 </script>
@@ -99,31 +105,31 @@
                                     <div class="product-img">
                                     <c:set var="picture" value="${proDAO.getFistPicture(objPro) }"></c:set>
                                     <img style="display: block; height: 200px; max-width: 200px;" src="${pageContext.request.contextPath }/fileUpload/${picture}" alt="">
-                                  
+
                                 </div>
                                 <div class="product-body">
                                     <p class="product-category">Laptop</p>
                                     <h3 class="product-name"><a href="${urlDetail}">
-                                    <c:choose>
-												<c:when test="${objPro.name.length() > 25 }">
-													<c:set var="name" value="${objPro.name.substring(0,25)}"></c:set>
-													<p>${name }...</p>
-												</c:when>
-												<c:otherwise>
-													<c:set var="name" value="${objPro.name }"></c:set>
-													<p>${name }</p>
-												</c:otherwise>
-											</c:choose>
-											
-										</a>
-                                    </a></h3>
+                                            <c:choose>
+                                                <c:when test="${objPro.name.length() > 25 }">
+                                                    <c:set var="name" value="${objPro.name.substring(0,25)}"></c:set>
+                                                    <p>${name }...</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="name" value="${objPro.name }"></c:set>
+                                                    <p>${name }</p>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </a>
+                                        </a></h3>
                                     <h4 class="product-price">${en.format(objPro.price)}đ </h4>                      
                                 </div>
-                               <div class="add-to-cart">
-									<button class="add-to-cart-btn" onclick="addcart(${objPro.id})">
-										<i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-									</button>
-								</div>
+                                <div class="add-to-cart">
+                                    <button class="add-to-cart-btn" onclick="addcart(${objPro.id})">
+                                        <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
@@ -185,19 +191,19 @@
     <!-- /container -->
 </div>
 <script type="text/javascript">
-		function addcart(id){
-			$.ajax({
-				url: '<%=request.getContextPath()%>/cart/add',
-				type: 'POST',
-				cache: false,
-				data: {id: id},
-				success: function(data){
-					$('#cart').html(data);
-				},
-				error: function (){
-					alert('Có lỗi xảy ra');
-				}
-			});
-			return false;
-		}
-	</script>
+    function addcart(id) {
+        $.ajax({
+            url: '<%=request.getContextPath()%>/cart/add',
+            type: 'POST',
+            cache: false,
+            data: {id: id},
+            success: function (data) {
+                $('#cart').html(data);
+            },
+            error: function () {
+                alert('Có lỗi xảy ra');
+            }
+        });
+        return false;
+    }
+</script>

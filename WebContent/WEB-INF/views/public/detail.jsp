@@ -48,15 +48,7 @@
                     <P>LCD: ${objPro.lcd}</P>
                     <P>PIN: ${objPro.pin}</P>
                     <P>OS: ${objPro.os}</P>
-
-                    <div class="product-options">
-                        <label>
-                            MÀU
-                            <select class="input-select">
-                                <option value="0">BẠC</option>
-                            </select>
-                        </label>
-                    </div>
+                    <P>MÀU: ${objPro.color}</P>
                     <div class="add-to-cart"> 
                         <button class="add-to-cart-btn" >
                         <a href="javascript:void(0)" title="" onclick="addcart(${objPro.id})">

@@ -55,6 +55,7 @@ public class PublicIndexController {
         modelMap.addAttribute("proDAO", proDAO);
         List<Slide> listSlide = slideDAO.getItems();
         modelMap.addAttribute("listSlide", listSlide);
+        modelMap.addAttribute("id_current", "home");
         Customer customer = (Customer) session.getAttribute("customer");
         modelMap.addAttribute("customer", customer);
     }
@@ -91,6 +92,7 @@ public class PublicIndexController {
         session.setAttribute("count", count);
         session.setAttribute("myCartTotal", Utils.Process.totalPrice(cartItems));
         session.setAttribute("myCartNum", cartItems.size());
+        modelMap.addAttribute("id_current", "home");
         return "public.index";
     }
 

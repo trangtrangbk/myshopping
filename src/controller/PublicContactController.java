@@ -29,33 +29,36 @@ import model.Customer;
 @Controller
 @RequestMapping("contact")
 public class PublicContactController {
-	@Autowired
-	private ContactDAO contactDAO;
-	@Autowired
-	private CategoryDAO catDAO;
-	@Autowired
-	private ProductDAO proDAO;
-	
-	@ModelAttribute
-	public void leftbar(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {		
-		request.setAttribute("catDAO", catDAO);	
-		modelMap.addAttribute("proDAO", proDAO);
-		Customer customer = (Customer)session.getAttribute("customer");
-		modelMap.addAttribute("customer", customer);
-	}
-	@GetMapping()
-	public String contact(ModelMap modelMap) {
-		return "public.contact";
-	}
-	
-	@PostMapping()
-	public String contact(@Valid @ModelAttribute("obj") Contact obj, BindingResult br, ModelMap modelMap, RedirectAttributes ra) {
-		if(br.hasErrors()) {
-			return "public.contact";
-		}else {
-		contactDAO.save(obj);
-		ra.addFlashAttribute("msg", MessageDefine.MSG_SUCCESS_CONTACT);
-		return "redirect:/contact"; 
-		}
-	}
+
+    @Autowired
+    private ContactDAO contactDAO;
+    @Autowired
+    private CategoryDAO catDAO;
+    @Autowired
+    private ProductDAO proDAO;
+
+    @ModelAttribute
+    public void leftbar(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+        request.setAttribute("catDAO", catDAO);
+        modelMap.addAttribute("proDAO", proDAO);
+        Customer customer = (Customer) session.getAttribute("customer");
+        modelMap.addAttribute("customer", customer);
+    }
+
+    @GetMapping()
+    public String contact(ModelMap modelMap) {
+        modelMap.addAttribute("id_current", "lienhe");
+        return "public.contact";
+    }
+
+    @PostMapping()
+    public String contact(@Valid @ModelAttribute("obj") Contact obj, BindingResult br, ModelMap modelMap, RedirectAttributes ra) {
+        if (br.hasErrors()) {
+            return "public.contact";
+        } else {
+            contactDAO.save(obj);
+            ra.addFlashAttribute("msg", MessageDefine.MSG_SUCCESS_CONTACT);
+            return "redirect:/contact";
+        }
+    }
 }

@@ -86,7 +86,7 @@
                         <!-- LOGO -->
                         <div class="col-md-3">
                             <div class="header-logo">
-                                <a href="#" class="logo"> <img src="${pageContext.request.contextPath }/resources/public/img/logo_1.png" width="200px" height="auto"  alt="">
+                                <a href="#" class="logo"> <img src="${pageContext.request.contextPath }/resources/public/img/logo.png" width="150px" height="100px"  alt="">
                                 </a>
                             </div>
                         </div>
